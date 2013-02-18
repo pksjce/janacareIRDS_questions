@@ -17,6 +17,7 @@
 			.answer{
 				font-family:arial;
 				font-size:15px;
+				line-height: 30px;
 			}
 			.question{
 				background-color:white;
@@ -96,12 +97,12 @@
 			}
 			.footer {
 				width:100%;
-				height:26px;
+				height:46px;
 				bottom:0;
 				left:0;
 				background-color: black;
 				opacity: 0.3;
-				position:absolute;				
+				position:fixed;				
 			}
 			.fixedBottom{
 				bottom:0;
@@ -117,22 +118,16 @@
 			}
 			.backButton, .nextButton, .startButton{
 				font-size: 1.3em;
-				color:black;				
-			}
-			.nextButtonHolder {
-				border-right: 5px solid lightgray;
-			}
-			.startButtonHolder {
-				border-bottom: 5px solid lightgray;
+				color:black;	
+				line-height:30px;			
 			}
 			.backButton:hover, .nextButton:hover, .startButton:hover{
-				font-size: 1.35em;
+				text-decoration: none;
 				color:black;
-				text-decoration: none;				
 			}
-
 			.backButtonHolder:hover, .nextButtonHolder:hover, .startButtonHolder:hover{
 				background-color: white; 
+				cursor:pointer;
 			}
 			.checked{
 				background-color: white	;
@@ -202,8 +197,14 @@
 				opacity:0.99;
 			}
 			.navigate {
-				font-size: 32pt;
-				color:white;
+				font: bold 80pt arial;
+				color: white;
+				top: 0;
+				left: 0;
+				margin-top: -13 px;
+				z-index: 99;
+				opacity: 0.99;
+				position: absolute;
 			}
 			.takeActionText {
 				text-align: center;
@@ -216,6 +217,14 @@
 			.submitButton{
 				background-color: #B5c59b
 			}		
+			.questionsString {
+				font: 15pt arial;
+				line-height: 43px;
+				position: absolute;
+				margin-left: 150px;
+				margin-top: -40px;
+				color: white;
+			}
 		</style>		
 	</head>
 <body>
@@ -224,11 +233,6 @@
 	<div id="habits">
 	</div>
 	<div class="footer">		
-	</div>
-	<div class="row-fluid fixedBottom">
-		<div class="span1 offset5">
-			<img src="imgc/bot_logo.png" style="padding-top:10px">
-		</div>
 	</div>
 </div>
 <script src="jquery.js" type="text/javascript"></script>
@@ -274,13 +278,16 @@
 <script type="text/template" id="header_question_template">
 	<div class="header">
 	</div>
-	<div class="row-fluid absHeader">
-		<div class="span2 offset1 navigate">
-			<h1><%=number%>/<%=total%></h1>
-		</div>
-		<div class="question offset5 span4">
+	<div class="row-fluid absHeader">		
+		<div class="question offset8 span4">
 			<h4><%=question%></h4>
 		</div>
+	</div>
+	<div class="navigate">
+		<%=number%>/<%=total%>
+	</div>
+	<div class="questionsString">
+			Questions
 	</div>
 </script>
 <script type="text/template" id="question_page_template">	
@@ -294,11 +301,15 @@
 				</div>
 			</div>					
 			<div class="row-fluid">
-				<div class="span2 backButtonHolder">
-					<a href="<%=backRoute%>" class="backButton">back</a>
+				<div class="span2" >
+					<div class="backButtonHolder" >
+						<a href="<%=backRoute%>" class="backButton">back</a>
+					</div>
 				</div>
-				<div class="span2 offset8 nextButtonHolder">
-					<a href="<%=nextRoute%>" class="nextButton">next</a>
+				<div class="span2 offset8">
+					<div class="nextButtonHolder">
+						<a href="<%=nextRoute%>" class="nextButton">next</a>
+					</div>
 				</div>
 			</div>
 		</div>				
@@ -323,7 +334,7 @@
 		<% var checked = "checked"; %>
 		<% _.each(options, function(option){ %>				
 			<div class="row-fluid">
-				<div name="answerOptions" value="<%=option.score%>" class="<%=checked%> span12">
+				<div name="answerOptions" value="<%=option.score%>" class="span6 offset3">
 					<%=option.text%>
 				</div>
 			</div>	
@@ -351,8 +362,6 @@
 	<div class="row-fluid">
 		<div class="scorePage span2 offset3">			
 			<% if (score <30) {%>
-				<img src="imgc/pie.png">
-				<img src="imgc/pie-shadow.png">
 				<div class="score">
 					<%=score%>
 				</div>
@@ -366,8 +375,6 @@
 				</div>				
 
 			<% } else if(score >= 30 && score <40){%>
-				<img src="imgc/pie.png">
-				<img src="imgc/pie-shadow.png">	
 				<div class="score">
 					<%=score%>
 				</div>					
@@ -380,8 +387,6 @@
 					You might be at risk for diabetes. You should focus on reducing some weight and becoming more physically active.
 					</div>	
 			<% } else if(score >= 40 && score <60){%>
-				<img src="imgc/pie.png">
-				<img src="imgc/pie-shadow.png">	
 				<div class="score">
 					<%=score%>
 				</div>					
@@ -394,8 +399,6 @@
 					You can definitely improve your habits score by reducing some weight and becoming more physically active
 				</div>				
 			<% } else if(score >= 60 && score <80){%>
-				<img src="imgc/pie.png">
-				<img src="imgc/pie-shadow.png">	
 				<div class="score">
 					<%=score%>
 				</div>					
@@ -408,8 +411,7 @@
 					Your risk for diabetes is low.
 				</div>
 			<% } else if(score >= 80){%>		
-				<img src="imgc/pie.png">
-				<img src="imgc/pie-shadow.png">
+
 				<div class="score">
 					<%=score%>
 				</div>				
@@ -509,7 +511,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],			
 			genderType: "b",
-			img: "imgc/2_age.jpg",
+			img: "imgc/003.jpg",
 			count:2
 		},
 		{
@@ -517,18 +519,18 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			question: "What is your level of physical activity?",
 			answerType: "multiSelect",
 			options: [{
-				text:"No exercise AND sedentary work",
+				text:"10-20 mins",
 				score:30
 			},{
-				text:"Exercise regularly OR strenuous work",
+				text:"20-40 mins",
 				score:20
 			},{
-				text:"Exercise regularly AND strenuous work",
+				text:"more than 40",
 				score:0
 			}
 			],
 			genderType: "b",
-			img: "imgc/3_act.jpg",
+			img: "imgc/004.jpg",
 			count:3
 		},
 		{
@@ -547,7 +549,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],
 			genderType: "b",
-			img: "imgc/4_fam.jpg",
+			img: "imgc/005.jpg",
 			count:4
 		},
 		{
@@ -566,7 +568,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],
 			genderType: "f",
-			img: "imgc/5_was.jpg",
+			img: "imgc/006.jpg",
 			count:5
 		},
 		{
@@ -586,7 +588,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],
 			genderType: "m",
-			img: "imgc/5_was.jpg",
+			img: "imgc/006.jpg",
 			count:5
 		},
 		{
@@ -601,7 +603,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				score:998
 			}
 			],
-			img: "imgc/1_gen.jpg",
+			img: "imgc/002.jpg",
 			genderType:'b',
 			count:1
 		}
@@ -744,8 +746,8 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			$(".backgroundImg").css("background-image","url('imgc/final_bg.jpg')");	
 			//$(".imgForBc").attr("src", "imgc/final_bg.jpg");
 			var answerPage = $(".scoreDetailPage");	
-			var height = parseInt(answerPage.next().height())  + 5;
-			$(".scoreDetailPage").height("100%");
+			var height = parseInt(answerPage.next().height());
+			$(".scoreDetailPage").height(document.height);
 		},
 		showHeader: function(){
 
@@ -757,7 +759,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			this.$el.append(template);			
 			$(".backgroundImg").css("background-image","url('imgc/0_raj.jpg')");	
 			var answerPage = $(".answerPage");	
-			var height = parseInt(answerPage.next().height())  + 5;
+			var height = parseInt(answerPage.next().height());
 			$(".answerPage").height(height + "px");	
 			$(".infoButton").mouseover(function(){
 				$("img.infoButton").attr("src", "imgc/info-on.png");
@@ -816,7 +818,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				//$(".imgForBc").attr("src", obj.img);
 				if(obj.question){
 					var answerPage = $(".answerPage");		
-					var height = parseInt(answerPage.next().height())  + 5;
+					var height = parseInt(answerPage.next().height());
 					$(".answerPage").height(height + "px");
 				}	
 				this.setAnswerBehaviour();							
@@ -842,6 +844,16 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
         			)};        		
         		clickHandler(option);
 			}
+			$(function(){
+				$('.backButtonHolder').click(function(){
+					router.navigate($('.backButton').attr("href"), {trigger: true});
+				});
+			});
+			$(function(){
+				$('.nextButtonHolder').click(function(){
+					router.navigate($('.nextButton').attr("href"), {trigger: true});
+				});
+			});
 		},
 
 		getNextFlowObject: function(givenId){
