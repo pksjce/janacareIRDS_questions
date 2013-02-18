@@ -1,0 +1,910 @@
+<html>
+	<head>	
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">	
+		<style type="text/css">
+			.backgroundImg { 
+			    background: url("") no-repeat center center fixed; 
+			    -webkit-background-size: cover;
+			    -moz-background-size: cover;
+			    -o-background-size: cover;
+			    background-size: cover;
+			    height:100%;
+			}
+			.fullPage,	.questionPage{
+				width:100%;
+				height:100%	;
+			}
+			.answer{
+				font-family:arial;
+				font-size:15px;
+			}
+			.question{
+				background-color:white;
+				text-align: center;	
+				height: 46px;
+				font-family: arial;
+				font-size: 18px
+			}
+			.answerPage{
+				background-color: white;
+				opacity:0.7;
+				top:46px;
+				right:0;
+				width:31.9%;
+				position:fixed;
+			}
+			.scoreDetailPage{
+				background-color: white;
+				opacity:0.7;
+				top:46px;
+				right:0;
+				width:31.9%;
+				position:fixed;				
+			}
+			.nextBox {
+				margin-right:10px;
+				background-color: white;
+				padding:0;
+				text-align: center;	
+				position: fixed;
+    			bottom: 0;
+    			right: 0;			
+			}
+			.anchorDec{
+				text-decoration: none;
+				color:black;
+			}
+			.scorePage{
+				margin-top:20px;
+			}
+			.enterButton{
+				position: fixed;
+				font-size: 2em;
+				top:50%;
+				left:50%;
+			}
+			.logoMiddle{
+				margin-top:20px;
+				margin-left:-45px;
+			}
+			select{
+				width:80%;
+			}
+			.shadow {
+  				-moz-box-shadow:    -7px -7px 15px 2px black;
+  				-webkit-box-shadow: -7px -7px 15px 2px black;
+  				box-shadow:         -7px -7px 15px 2px black;
+			}
+			.form{
+				border:1px solid black;
+			}
+			.facebook {
+				background: url('imgc/fb.png') no-repeat;
+			}
+			.header {
+				width:100%;
+				height:46px;
+				top:0;
+				left:0;
+				background-color: black;
+				opacity: 0.3
+			}
+			.absHeader{
+				position:fixed;
+				top:0;
+				left:0;
+			}
+			.footer {
+				width:100%;
+				height:26px;
+				bottom:0;
+				left:0;
+				background-color: black;
+				opacity: 0.3;
+				position:absolute;				
+			}
+			.fixedBottom{
+				bottom:0;
+				left:0;
+				position: absolute;
+				width:100%;
+				
+			}
+			.box {
+				height:5px;
+				width:5px;
+				border:1px solid black;
+			}
+			.backButton, .nextButton, .startButton{
+				font-size: 1.3em;
+				color:black;				
+			}
+			.nextButtonHolder {
+				border-right: 5px solid lightgray;
+			}
+			.startButtonHolder {
+				border-bottom: 5px solid lightgray;
+			}
+			.backButton:hover, .nextButton:hover, .startButton:hover{
+				font-size: 1.35em;
+				color:black;
+				text-decoration: none;				
+			}
+
+			.backButtonHolder:hover, .nextButtonHolder:hover, .startButtonHolder:hover{
+				background-color: white; 
+			}
+			.checked{
+				background-color: white	;
+				width:100%;
+				opacity:0.8;
+			}
+			[name = 'answerOptions'] {
+				cursor :pointer;
+			}
+			.infoButton{
+				cursor: pointer;
+				text-align: center;	
+				height:28px;
+				width:28px;						
+			}
+			.circleBorder{
+				border:2px dotted white;
+				border-radius: 60px;
+			}		
+			.filler {
+					height: 20px
+			}	
+			.score{
+				font: bold 65pt arial;
+				color:white;
+				text-align: center;
+			}
+			.whiteline{
+				border: 2px solid white;
+			}
+			.scoreStatus{
+				font: 16pt arial;
+				color:white;
+				text-align: center;				
+			}
+			.scoreAction{
+				font: 14pt arial;
+				color:white;
+				text-align: center;				
+			}
+			.socialTab{
+				position:fixed;
+				bottom:130;
+				left:0;
+				width:32px;
+			}
+			.socialButton{
+				width:30px;
+				height:30px;
+				margin:10px;
+			}
+			.helpText{
+				font: bold 12pt arial;
+				text-align: justify;
+				opacity: 0.99;
+				padding: 30px;
+				color:white;
+			}
+			.downloadText{
+				font: 11pt arial;
+				text-align: justify;
+				opacity: 0.99;				
+			}
+			.phBox{				
+				padding-left:30px;
+				padding-right: 30px;
+				opacity:0.99;
+			}
+			.navigate {
+				font-size: 32pt;
+				color:white;
+			}
+			.takeActionText {
+				text-align: center;
+				font: bold 18pt arial;
+				line-height: 1.5;
+			}
+			.foodHabits {
+				height:25%;
+			}	
+			.submitButton{
+				background-color: #B5c59b
+			}		
+		</style>		
+	</head>
+<body>
+
+<div class="backgroundImg">
+	<div id="habits">
+	</div>
+	<div class="footer">		
+	</div>
+	<div class="row-fluid fixedBottom">
+		<div class="span1 offset5">
+			<img src="imgc/bot_logo.png" style="padding-top:10px">
+		</div>
+	</div>
+</div>
+<script src="jquery.js" type="text/javascript"></script>
+<script src="bootstrap/js/bootstrap.js" type="text/javascript"></script>
+<script src="underscore.js" type="text/javascript"></script>
+<script src="backbone.js" type="text/javascript"></script>
+<script type="text/template" id="home_page_template">
+	<div class="header">
+	</div>
+	<div class="row-fluid absHeader">
+	<div class="question offset8 span4">
+			<h4><%=question%></h4>
+		</div>
+	</div>
+	<div class="answerPage">
+	</div>
+	<div class ="row-fluid" style="opacity:0.99; text-align:center">
+		<div class ="span4 offset8">
+			<div class="filler">
+			</div>	
+			<div class="row-fluid">
+				<div class="answer span10 offset1">
+					<%=answer%>
+				</div>
+			</div>
+			<div class="filler">
+			</div>		
+			<div class="filler">
+			</div>		
+			<div class="filler">
+			</div>					
+			<div class="row-fluid">
+				<div class ="span1">
+					<img src="imgc/info-off.png" class="infoButton">
+				</div>
+				<div class="span2 offset9 startButtonHolder">
+					<a href="<%=startRoute%>" class="startButton">start</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<script type="text/template" id="header_question_template">
+	<div class="header">
+	</div>
+	<div class="row-fluid absHeader">
+		<div class="span2 offset1 navigate">
+			<h1><%=number%>/<%=total%></h1>
+		</div>
+		<div class="question offset5 span4">
+			<h4><%=question%></h4>
+		</div>
+	</div>
+</script>
+<script type="text/template" id="question_page_template">	
+	<div class="answerPage">
+	</div>
+	<div class ="row-fluid" style="opacity:0.99; text-align:center">
+		<div class ="span4 offset8">	
+			<div class="row-fluid">
+				<div class="answer span10 offset1">
+					<%=answer%>
+				</div>
+			</div>					
+			<div class="row-fluid">
+				<div class="span2 backButtonHolder">
+					<a href="<%=backRoute%>" class="backButton">back</a>
+				</div>
+				<div class="span2 offset8 nextButtonHolder">
+					<a href="<%=nextRoute%>" class="nextButton">next</a>
+				</div>
+			</div>
+		</div>				
+	</div>
+</script>
+<script type="text/template" id="fact_page_template">
+	<div class ="fullPage" style = "background-image:<%=img%>">
+		<div class="factText">
+			<%=factText%>			
+		</div>
+		<a href="#" class="next"></a>
+	</div>
+</script>
+<script type="text/template" id="answer_text_template">
+	<input type="text" name="firstname">
+	
+</script>
+<script type="text/template" id="answer_multiple_template">
+	<div class="answer">		
+		<div class="filler">
+		</div>
+		<% var checked = "checked"; %>
+		<% _.each(options, function(option){ %>				
+			<div class="row-fluid">
+				<div name="answerOptions" value="<%=option.score%>" class="<%=checked%> span12">
+					<%=option.text%>
+				</div>
+			</div>	
+			<%if(options.length == 2 && checked == ""){%>
+				<div class="row-fluid">
+					<div class="span12" style="visibility:none">						
+					</div>
+				</div>	
+			<%}checked = "";});%>
+	</div>
+</script>
+<script type="text/template" id="score_template">
+	<div class="header">
+	</div>
+	<div class="row-fluid absHeader">
+		<div class="span2 offset3 ">
+			<h3 style="color:white; text-align:center">Your score is</h3>
+		</div>
+		<div class="question offset3 span4">
+			<h4><%=question%></h4>
+		</div>
+	</div>
+	<div class="scoreDetailPage">
+	</div>
+	<div class="row-fluid">
+		<div class="scorePage span2 offset3">			
+			<% if (score <30) {%>
+				<img src="imgc/pie.png">
+				<img src="imgc/pie-shadow.png">
+				<div class="score">
+					<%=score%>
+				</div>
+				<div class="whiteLine"></div>
+				<div class="filler"></div>
+				<div class="scoreStatus">
+					RED ALERT!
+				</div>
+				<div class="scoreAction">
+					 You are at high risk for diabetes. You should definitely get your blood sugar tested at a nearby lab or hospital.
+				</div>				
+
+			<% } else if(score >= 30 && score <40){%>
+				<img src="imgc/pie.png">
+				<img src="imgc/pie-shadow.png">	
+				<div class="score">
+					<%=score%>
+				</div>					
+				<div class="whiteLine"></div>						
+				<div class="filler"></div>
+				<div class="scoreStatus">
+					CAN BE BETTER
+				</div>
+				<div class="scoreAction">
+					You might be at risk for diabetes. You should focus on reducing some weight and becoming more physically active.
+					</div>	
+			<% } else if(score >= 40 && score <60){%>
+				<img src="imgc/pie.png">
+				<img src="imgc/pie-shadow.png">	
+				<div class="score">
+					<%=score%>
+				</div>					
+				<div class="whiteLine"></div>						
+				<div class="filler"></div>
+				<div class="scoreStatus">
+					HMMMM....ALRIGHT
+				</div>
+				<div class="scoreAction">
+					You can definitely improve your habits score by reducing some weight and becoming more physically active
+				</div>				
+			<% } else if(score >= 60 && score <80){%>
+				<img src="imgc/pie.png">
+				<img src="imgc/pie-shadow.png">	
+				<div class="score">
+					<%=score%>
+				</div>					
+				<div class="whiteLine"></div>						
+				<div class="filler"></div>
+				<div class="scoreStatus">
+					GOOD
+				</div>
+				<div class="scoreAction">
+					Your risk for diabetes is low.
+				</div>
+			<% } else if(score >= 80){%>		
+				<img src="imgc/pie.png">
+				<img src="imgc/pie-shadow.png">
+				<div class="score">
+					<%=score%>
+				</div>				
+				<div class="whiteLine"></div>
+				<div class="filler"></div>
+				<div class="scoreStatus">
+					EXCELLENT. 
+				</div>	
+				<div class="scoreAction">
+					Your are not only at low risk for diabetes but also a role model for others
+				</div>
+			<% } %>
+		</div>	
+		<div class="offset3 span4" style="opacity:0.99">
+			<div class="helpText">
+			Losing 7% of body weight can reduce your risk for diabetes by 58%. </br>
+			</br>
+			You can easily achieve this through healthier eating and increased physical activity.
+Take action rightaway by downloading the food:habits app to help you eat healthier !
+			</div>
+			<div class="row-fluid" >
+				<div class="span1">
+				</div>
+				<div class="span10 whiteLine" style="min-height:2px;">
+				</div>
+				<div class="span1">
+				</div>				
+			</div>
+			<div class="takeActionText">
+				Take action, reduce your risk for </br>
+				developing diabetes by</br>
+				downloading the free app:</br>
+				<div class="filler">
+				</div>
+				<img  class= "foodHabits" src="imgc/food_habits.jpg">
+			</div>
+			<div class="filler">
+			</div>			
+			<div class="phBox">
+				Enter your mobile number to recieve </br>
+				the <b>food:habits</b> app, to help you </br>
+				manage your lifestyle.</br>
+				
+				<div class="filler">
+				</div>		
+				<div class="row-fluid">		
+					<div class="span2" style="color:white;font:bold 12pt arial;text-align:left;padding-top:5px;">
+						Mobile
+					</div>
+					<div class="span7">
+						<input style="height:4%;width:100%" type="text" >					
+					</div>
+					<div class="span2 offset1">
+						<input type="button" value="Submit" class="btn btn-success">
+					</div>
+				</div>
+			</div>
+
+			<div class="row-fluid downloadBox">
+				<div class="span5 offset2 downloadText">
+					Or download <b>food:habits</b> with</br>
+					the Google Play<sup>TM</sup> Store app
+				</div>
+				<div class="span5">					
+						<img src="imgc/google_play.png" alt = "Download food:habits" onclick="javascript:window.open('https://play.google.com/store/apps/details?id=com.janacare.foodtrack', '_blank')" style="cursor:pointer">
+				</div>
+			</div>
+		</div>		
+	</div>	
+	<div class="socialTab">
+		<a href="https://www.facebook.com/dialog/feed?
+app_id=448182651920418&
+link=https://developers.facebook.com/docs/reference/dialogs/&
+picture=http://fbrell.com/f8.jpg&
+name=Facebook%20Dialogs&
+caption=Food%20Habits&
+description=My%20score%20is%200%20I%20have%20no%20diabetes%20risk.&
+redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src="imgc/fb.png"></a>
+	<a href="#" ><img class="socialButton" src="imgc/twitter.png"></a>	
+	</div>	
+</script>
+<script type="text/javascript">	
+	var questions = [
+		{
+			id:1,
+			question: "What is your age? (in years)",
+			answerType: "multiSelect",
+			options: [{
+				text:"< 35",
+				score:0
+			},{
+				text:"35 - 49",
+				score:20
+			},{
+				text:"> 49",
+				score:30
+			}
+			],			
+			genderType: "b",
+			img: "imgc/2_age.jpg",
+			count:2
+		},
+		{
+			id:2,
+			question: "What is your level of physical activity?",
+			answerType: "multiSelect",
+			options: [{
+				text:"No exercise AND sedentary work",
+				score:30
+			},{
+				text:"Exercise regularly OR strenuous work",
+				score:20
+			},{
+				text:"Exercise regularly AND strenuous work",
+				score:0
+			}
+			],
+			genderType: "b",
+			img: "imgc/3_act.jpg",
+			count:3
+		},
+		{
+			id:3,
+			question: "Is there any family history of diabetes?",
+			answerType: "multiSelect",
+			options: [{
+				text:"No Family history",
+				score:0
+			},{
+				text:"One Parent",
+				score:10
+			},{
+				text:"Both Parents",
+				score:20
+			}
+			],
+			genderType: "b",
+			img: "imgc/4_fam.jpg",
+			count:4
+		},
+		{
+			id:4,
+			question: "What is your waist measurement?",
+			answerType: "multiSelect",
+			options:[{
+				text:"Less than 80cm?",
+				score:0
+			},{
+				text:"Between 80cm and 90cm",
+				score:10
+			},{
+				text:"Greater than 90cm",
+				score:20
+			}
+			],
+			genderType: "f",
+			img: "imgc/5_was.jpg",
+			count:5
+		},
+		{
+			id:4,
+			question: "What is your waist measurement?",
+			answerType: "multiSelect",
+			options:[
+			{
+				text:"Less than 90cm?",
+				score:0
+			},{
+				text:"Between 90cm and 100cm",
+				score:10
+			},{
+				text:"Greater than 100cm",
+				score:20
+			}
+			],
+			genderType: "m",
+			img: "imgc/5_was.jpg",
+			count:5
+		},
+		{
+			id:5,
+			question: "What is your gender?",
+			answerType: "multiSelect",
+			options:[ {
+				text: "Male",
+				score:999
+			},{
+				text: "Female",
+				score:998
+			}
+			],
+			img: "imgc/1_gen.jpg",
+			genderType:'b',
+			count:1
+		}
+	];
+
+	var facts = [
+		{
+			id:1,
+			factText: "Fact No 1",
+			img: "img1",
+			genderType : "b"
+		},
+		{
+			id:2,
+			factText: "Fact No 2",
+			img: "img1",
+			genderType : "b"
+		},
+		{
+			id:3,
+			factText: "Fact No 3",
+			img: "img1",
+			genderType : "b"
+		},
+		{
+			id:4,
+			factText: "Fact No 4",
+			img: "img1",
+			genderType : "f"
+		},
+		{
+			id:4,
+			factText: "Fact No 5",
+			img: "img1",
+			genderType : "m"
+		},
+		{
+			id:5,
+			factText: "Fact No 6",
+			img: "img1",
+			genderType : "b"
+		}
+
+	];
+
+	var flowOfPages = {
+		flow: ["5q","1q","2q","3q","4q"],
+		noOfq:5,
+		pointer : 0,
+		questionCount:1,
+		factCount:1,
+		getNext : function(){
+			var next = {};
+			if(this.pointer < this.flow.length){
+				next["obj"] = this.flow[this.pointer];
+				this.pointer = this.pointer+ 1;
+				if(next["obj"].indexOf('q') == 1){
+					next["count"] = this.questionCount;
+					next["type"] = "q";
+					this.questionCount++;
+				} else {
+					next["count"] = this.factCount;
+					next["type"] = "f";
+					this.factCount++;
+				}
+				return next;
+			}
+			return null;
+
+		}
+	};
+	var gender = 'b';
+	var ApplicationView = Backbone.View.extend({
+		el : "#habits",
+		flowObject: {},
+		score:0,
+		events: {
+			
+		},
+		initialize: function(){			
+			this.setFlowHash();		
+			this.createHiddenForm();	
+		},
+		$form: null,
+		createHiddenForm: function(){
+			this.$form = $("<form name='hiddenStuff' action='https://script.google.com/macros/s/AKfycbwgYCCRM3N8Na8lFe6OwSb8lhWmVz-hA6-3pWkkgc97AsV_tQ/exec' method='post'></form>")			
+		},
+		setFlowHash: function(){
+			this.flowObject.start = false;
+			this.flowObject.questionList = [];			
+		},
+		render: function(){
+			this.showHomePage();
+			this.flowObject.start = true;
+			
+		},
+		data:new Array(),
+		createFormElement : function(){
+			this.$form.append("<input name='" + this.question +"' value = '" + this.answer +  "' type='text'/>");
+		},
+		calculateScore: function(){	
+			if(this.answer != undefined && this.question != undefined){
+				this.createFormElement();
+			}	
+			if(this.scoreHere != undefined){				
+				if(this.scoreHere == 998){
+					gender = "f";
+				} else if(this.scoreHere == 999){
+					gender = "m";
+				} else {
+					this.score = this.score + parseInt(this.scoreHere);
+				}								
+			}			
+		},
+
+		showScorePage: function(){		
+			/*if(this.$form !=null){
+				this.$form.trigger('submit');
+						}*/
+			$.ajax({
+			  url: "http://spreadsheets.google.com/formResponse",
+			  data: { formkey: "13zuAcvKmopnA3wJG60CeFqEBPyO-Y3pfs0jK4Sig7n0c", "entry.0.single": "ors", "entry.2.single": "email", "entry.3.single": "customerID" },
+			  type: "POST",
+			  dataType: "json",
+			  success: function(data, textStatus, XMLHttpRequest) {
+			    console.log("success");
+			    console.log(data);
+			  },
+			  error: function(XMLHttpRequest, textStatus, errorThrown) {
+			    console.log("error");
+			    console.log(textStatus);
+			  },
+			})			
+			
+			this.flowObject.start = false;
+			this.$el.empty();			
+			var positiveScore = 100 - this.score 
+			var template = _.template($("#score_template").html(),{score:positiveScore, question:"Did you know?"});
+			this.$el.append(template);
+			$(".backgroundImg").css("background-image","url('imgc/final_bg.jpg')");	
+			//$(".imgForBc").attr("src", "imgc/final_bg.jpg");
+			var answerPage = $(".scoreDetailPage");	
+			var height = parseInt(answerPage.next().height())  + 5;
+			$(".scoreDetailPage").height("100%");
+		},
+		showHeader: function(){
+
+		},
+
+		showHomePage: function(){
+			var template= _.template($("#home_page_template").html(),{question:"Are you at risk for Diabetes?",answer:"Take this one minute test to find out",startRoute:"#questions/1"});
+			this.$el.empty();
+			this.$el.append(template);			
+			$(".backgroundImg").css("background-image","url('imgc/0_raj.jpg')");	
+			var answerPage = $(".answerPage");	
+			var height = parseInt(answerPage.next().height())  + 5;
+			$(".answerPage").height(height + "px");	
+			$(".infoButton").mouseover(function(){
+				$("img.infoButton").attr("src", "imgc/info-on.png");
+				$("img.infoButton").addClass("circleBorder");
+			})
+			.mouseout(function(){
+				$("img.infoButton").attr("src", "imgc/info-off.png");
+				$("img.infoButton").removeClass("circleBorder");
+			});
+		},
+		changeRoute: function(){
+			var next = flowOfPages.getNext();
+			if(next != null){
+				this.currentObj = next;
+				if(next.type == 'q'){
+					this.showNextFlowObject();
+				}
+			} else {
+				this.showScorePage();
+			}
+		},		
+		showNextFlowObject: function(objId){
+			this.calculateScore();
+			var obj = this.getNextFlowObject(objId);
+			if(obj == null){				
+				this.showScorePage();
+			} else {
+			var template, headerTemplate, answerHtml;			
+				if(obj.question){
+					this.question = obj.question;
+					if(obj.answerType == "textBox"){
+						answerHtml = _.template($("#answer_text_template").html(),{});	
+					} else {
+						answerHtml = _.template($("#answer_multiple_template").html(),{options:obj.options});
+					}				
+					headerTemplate = _.template($("#header_question_template").html(), {question: obj.question, number: obj.count, total:flowOfPages.flow.length})
+					var backRoute = obj.count == 1 ? "#home" : "#questions/" + (obj.count -1); 
+					var nextRoute = obj.count == 5 ? "#score" : "#questions/" + (obj.count +1);
+					template = _.template($("#question_page_template").html(), {img: obj.img, answer:answerHtml, backRoute:backRoute, nextRoute: nextRoute});							
+				}		
+				else if(obj.factText){
+					template = _.template($("#fact_page_template").html() , {img: obj.img, factText: obj.factText});
+				}
+				this.$el.empty();
+				this.$el.append(headerTemplate);
+				this.$el.append(template);
+				imgUrl = "url('" + obj.img + "')";
+				if(obj.img == "imgc/5_was.jpg"){
+					this.img = $('<img/>', {'src': obj.img} );
+					this.img.appendTo(".backgroundImg"); 
+					this.img.attr("style","height:100%;width:100%;top:0;left:0;position:absolute;z-index:-99")
+					$(".backgroundImg").css("background-image","");	
+				} else {
+					$(".backgroundImg").css("background-image",imgUrl);	
+				}
+				//$(".imgForBc").attr("src", obj.img);
+				if(obj.question){
+					var answerPage = $(".answerPage");		
+					var height = parseInt(answerPage.next().height())  + 5;
+					$(".answerPage").height(height + "px");
+				}	
+				this.setAnswerBehaviour();							
+			}
+		},
+		setAnswerBehaviour: function(){
+			var answerOptions = $('[name="answerOptions"]');
+			var currentAns = answerOptions.eq(0);
+			var self = this;
+			self.answer = currentAns.html();			
+			self.scoreHere = currentAns.attr("value");
+			for(var i=0;i<answerOptions.length; i++){
+				var option = answerOptions.eq(i);				
+				function clickHandler(obj) {    
+        			obj.click (
+            			function() {
+            			 	currentAns.removeClass('checked');
+							obj.addClass('checked');
+							currentAns = obj;
+							self.answer = currentAns.html();
+							self.scoreHere = currentAns.attr("value");
+            			}
+        			)};        		
+        		clickHandler(option);
+			}
+		},
+
+		getNextFlowObject: function(givenId){
+			if(this.currentObj == null){
+				this.currentObj = flowOfPages.getNext();
+			}
+			var nextFlowObject = this.currentObj;
+			var objId = givenId == undefined ? parseInt(nextFlowObject["count"])  : givenId;
+			if(objId != null || givenId!= undefined){
+				if(nextFlowObject["type"] == 'q'){
+					for (id in questions){
+						var question = questions[id];
+						if(question.count == objId && (question.genderType == gender || question.genderType == 'b')){							
+							return question;
+						}
+					}
+				} else if(nextFlowObject["type"] == 'f'){
+					for(id in facts){
+						var fact = facts[id];
+						if(fact.id == parseInt(nextFlowObject["obj"]) && (fact.genderType == gender || fact.genderType == 'b')){
+							return fact;
+						}
+					}
+				}
+			}
+			return null; 
+		}
+	});
+	var Router = Backbone.Router.extend({
+		routes: {
+			'':'home',
+			'home':'home',			
+			'questions/:id': 'questions',
+			'facts/:id': 'facts',
+			"score": 'score'
+		}
+	});
+	var app = new ApplicationView();
+	var router = new Router();
+	router.on('route:score', function(){
+		console.log("this is score");
+		app.showNextFlowObject(100);
+	});
+	router.on('route:questions', function(questionId){
+		console.log("this is a question");
+		app.showNextFlowObject(questionId);
+	});
+	router.on('route:facts', function(){
+		console.log("this is facts");
+	});
+
+	router.on('route:home', function(){
+		app.render();
+	});	
+
+
+	Backbone.history.start();
+	var preload = ["imgc/0_raj.jpg", "imgc/1_gen.jpg", "imgc/2_age.jpg", "imgc/3_act.jpg", "imgc/4_fam.jpg", "imgc/5_was.jpg", "imgc/food_habits.jpg","imgc/final_bg.jpg"];
+	var images = [];
+	for (i = 0; i < preload.length; i++) {
+	    images[i] = new Image();
+	    images[i].src = preload[i];
+	}
+</script>
+</body>
+</html>
