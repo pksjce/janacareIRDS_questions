@@ -21,14 +21,14 @@
 			.question{
 				background-color:white;
 				text-align: center;	
-				height: 46px;
+				height: 60px;
 				font-family: arial;
 				font-size: 18px
 			}
 			.answerPage{
 				background-color: white;
 				opacity:0.7;
-				top:46px;
+				top:60px;
 				right:0;
 				width:31.9%;
 				position:fixed;
@@ -225,6 +225,26 @@
 				line-height:36px;
 				padding-left:2%;
 			}
+			.headerText{
+				font:bold 32pt arial;
+				color:white;
+				text-align: right;
+				padding-right:40px;
+			}
+			.headerInfo{
+				font bold 12pt arial;
+				color:white;
+			}
+			.enterButton{				
+				border-radius: 50%;
+				width: 200px;
+				height: 200px; 
+			}
+			.enterButtonText{
+				font: bold 12pt arial;
+				color:white;
+				text-align:center;
+			}
 		</style>	
 			<script type="text/javascript">
 
@@ -254,36 +274,22 @@
 <script src="underscore.js" type="text/javascript"></script>
 <script src="backbone.js" type="text/javascript"></script>
 <script type="text/template" id="home_page_template">
-	<!--div class="header">
-	</div-->
-	<div class="row-fluid absHeader">	
-		<div class="question offset8 span4">
-				<h4><%=question%></h4>
-		</div>
-	</div>
-	<div class="answerPage">
-	</div>
 	<div class ="row-fluid" style="opacity:0.99; text-align:center">
-		<div class ="span4 offset8">
-			<div class="filler">
+		<div class ="span4 offset8 ">
+			<div class= "headerText">
+				Find out your </br>
+				<span style="font-size:40pt">sugarscore </span>
+			</div>			
+			<div class="headerInfo">
+				Developed in association with Dr. V. Mohan</br>
+				"at Dr. Mohan's Diabetes Speciality Center, Chennai"
 			</div>	
-			<div class="row-fluid">
-				<div class="answer span10 offset1">
-					<%=answer%>
-				</div>
-			</div>
-			<div class="filler">
-			</div>		
-			<div class="filler">
-			</div>		
-			<div class="filler">
-			</div>					
-			<div class="row-fluid">
-				<div class="span2 offset10 startButtonHolder">
-					<a href="<%=startRoute%>" class="startButton">start</a>
-				</div>
-			</div>
 		</div>
+	</div>
+	<div class="enterButton">
+		<span class="enterButtonText">
+			enter
+		</span>
 	</div>
 </script>
 <script type="text/template" id="header_question_template">
@@ -294,7 +300,7 @@
 			Question
 		</div>
 		<div class="question offset7 span4">
-				<h4><%=question%></h4>
+				<h3><%=question%></h3>
 		</div>
 	</div>
 	<div class="navigate">
@@ -533,7 +539,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		},
 		{
 			id:2,
-			question: "What is your level of physical activity?",
+			question: "How active are you in a day?											",
 			answerType: "multiSelect",
 			options: [{
 				text:"10-20 mins",
@@ -542,12 +548,12 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				text:"20-40 mins",
 				score:20
 			},{
-				text:"more than 40",
+				text:"more than 40 mins",
 				score:0
 			}
 			],
 			genderType: "b",
-			img: "imgc/004.jpg",
+			img: "imgc/3_act.jpg",
 			count:3
 		},
 		{
@@ -585,7 +591,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],
 			genderType: "f",
-			img: "imgc/006.jpg",
+			img: "imgc/5_was_crop.jpg",
 			count:5
 		},
 		{
@@ -605,7 +611,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],
 			genderType: "m",
-			img: "imgc/006.jpg",
+			img: "imgc/5_was_crop.jpg",
 			count:5
 		},
 		{
@@ -779,17 +785,6 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			this.$el.empty();
 			this.$el.append(template);			
 			$(".backgroundImg").css("background-image","url('imgc/001.jpg')");	
-			var answerPage = $(".answerPage");	
-			var height = parseInt(answerPage.next().height());
-			$(".answerPage").height(height + "px");	
-			$(".infoButton").mouseover(function(){
-				$("img.infoButton").attr("src", "imgc/info-on.png");
-				$("img.infoButton").addClass("circleBorder");
-			})
-			.mouseout(function(){
-				$("img.infoButton").attr("src", "imgc/info-off.png");
-				$("img.infoButton").removeClass("circleBorder");
-			});
 		},
 		changeRoute: function(){
 			var next = flowOfPages.getNext();
@@ -929,9 +924,10 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				if(nextFlowObject["type"] == 'q'){
 					for (id in questions){
 						var question = questions[id];
-						if(question.count == objId && (question.genderType == gender || question.genderType == 'b')){							
+						var compareGender = this.gender == undefined ? "m" : this.gender
+						if(question.count == objId && (question.genderType == compareGender || question.genderType == 'b')){							
 							return question;
-						}
+						} 
 					}
 				} else if(nextFlowObject["type"] == 'f'){
 					for(id in facts){
@@ -974,7 +970,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 
 
 	Backbone.history.start();
-	var preload = ["imgc/0_raj.jpg", "imgc/1_gen.jpg", "imgc/2_age.jpg", "imgc/3_act.jpg", "imgc/4_fam.jpg", "imgc/5_was.jpg", "imgc/food_habits.jpg","imgc/final_bg.jpg"];
+	var preload = ["imgc/001.jpg", "imgc/002.jpg", "imgc/003.jpg", "imgc/3_act.jpg", "imgc/005.jpg", "imgc/5_was_crop.jpg", "imgc/food_habits.jpg","imgc/final_bg.jpg"];
 	var images = [];
 	for (i = 0; i < preload.length; i++) {
 	    images[i] = new Image();
