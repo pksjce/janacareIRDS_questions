@@ -39,7 +39,8 @@
 				top:46px;
 				right:0;
 				width:31.9%;
-				position:fixed;				
+				position:fixed;	
+				height:100%;			
 			}
 			.nextBox {
 				margin-right:10px;
@@ -226,14 +227,16 @@
 				padding-left:2%;
 			}
 			.headerText{
-				font:bold 32pt arial;
+				font:bold 40pt arial;
 				color:white;
 				text-align: right;
 				padding-right:40px;
 			}
 			.headerInfo{
-				font bold 12pt arial;
+				font: bold 12pt arial;
 				color:white;
+				text-align: right;
+				padding-right:40px;
 			}
 			.firstButton{				
 				width:300px;
@@ -245,8 +248,8 @@
 				text-align:center;
 				background:white;				
 				position:absolute;
-				top:20%;
-				right:15%;
+				top:25%;
+				right:10%;
 				cursor:pointer;
 			}
 			.enterButtonText{
@@ -287,11 +290,15 @@
 		<div class ="span4 offset8 ">
 			<div class= "headerText">
 				Find out your </br>
-				<span style="font-size:40pt">sugarscore </span>
+				<span style="font-size:70pt;line-height:50px">sugarscore.</span>
+			</div>			
+			<div class="filler">
+			</div>
+			<div class="filler">
 			</div>			
 			<div class="headerInfo">
 				Developed in association with Dr. V. Mohan</br>
-				"at Dr. Mohan's Diabetes Speciality Center, Chennai"
+				at Dr. Mohan s Diabetes Speciality Center, Chennai
 			</div>	
 		</div>
 	</div>
@@ -764,10 +771,6 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			this.$el.append(template);
 			$(".backgroundImg").css("background-image","url('imgc/final_bg.jpg')");	
 			//$(".imgForBc").attr("src", "imgc/final_bg.jpg");
-			var answerPage = $(".scoreDetailPage");	
-			var height = parseInt(answerPage.next().height());
-			$(".scoreDetailPage").height(document.height *0.95);
-			$(".scoreDetailPage").next().height(document.height *0.9);
 			$("#submitButton").click(function(){
 				var number = $("#mobileNumber").val();
 				/*var pattern = /^(7|8|9)[\d]{9,9}$/;
