@@ -235,10 +235,19 @@
 				font bold 12pt arial;
 				color:white;
 			}
-			.enterButton{				
-				border-radius: 50%;
-				width: 200px;
-				height: 200px; 
+			.firstButton{				
+				width:300px;
+				height:300px;
+				border-radius:150px;
+				font-size:50pt;
+				color:#B5C59B;
+				line-height:300px;
+				text-align:center;
+				background:white;				
+				position:absolute;
+				top:20%;
+				right:15%;
+				cursor:pointer;
 			}
 			.enterButtonText{
 				font: bold 12pt arial;
@@ -286,10 +295,8 @@
 			</div>	
 		</div>
 	</div>
-	<div class="enterButton">
-		<span class="enterButtonText">
+	<div class="firstButton">		
 			enter
-		</span>
 	</div>
 </script>
 <script type="text/template" id="header_question_template">
@@ -376,7 +383,7 @@
 		</div>
 	</div>
 	<div class="scoreDetailPage">
-	</div>
+	</div>	
 	<div class="row-fluid">
 		<div class="scorePage span4">			
 			<% if (score >80) {%>
@@ -445,6 +452,8 @@
 			<% } %>
 		</div>	
 		<div class="offset4 span4" style="opacity:0.99">
+			<div class="filler">
+			</div>
 			<img src="imgc/ratio.png" style="padding-left:30%;width:36%">			
 			<div class="helpText">
 				<span style="color:lightblue"> If you lose 7% of Body Weight...</span>
@@ -785,6 +794,9 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			this.$el.empty();
 			this.$el.append(template);			
 			$(".backgroundImg").css("background-image","url('imgc/001.jpg')");	
+			$(".firstButton").click(function(){
+				router.navigate("#questions/1", {trigger:true});
+			})
 		},
 		changeRoute: function(){
 			var next = flowOfPages.getNext();
