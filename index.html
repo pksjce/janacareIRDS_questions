@@ -2,6 +2,9 @@
 	<head>	
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">	
 		<style type="text/css">
+			body{
+				min-width:700px;
+			}
 			.backgroundImg { 
 			    background: url("") no-repeat center center fixed; 
 			    -webkit-background-size: cover;
@@ -9,6 +12,7 @@
 			    -o-background-size: cover;
 			    background-size: cover;
 			    height:100%;
+			    min-width:1000px;
 			}
 			.fullPage,	.questionPage{
 				width:100%;
@@ -17,20 +21,20 @@
 			.answer{
 				font: bold 12pt arial;
 				line-height: 30px;
+				text-align: center;
 			}
 			.question{
 				background-color:white;
 				text-align: center;	
 				height: 60px;
-				font-family: arial;
-				font-size: 18px
+				font: bold 18pt arial;
+				line-height: 60px;			
 			}
 			.answerPage{
 				background-color: white;
 				opacity:0.7;
 				top:60px;
-				right:0;
-				width:31.9%;
+				right:0;				
 				position:fixed;
 			}
 			.scoreDetailPage{
@@ -41,16 +45,7 @@
 				width:31.9%;
 				position:fixed;	
 				height:100%;			
-			}
-			.nextBox {
-				margin-right:10px;
-				background-color: white;
-				padding:0;
-				text-align: center;	
-				position: fixed;
-    			bottom: 0;
-    			right: 0;			
-			}
+			}			
 			.anchorDec{
 				text-decoration: none;
 				color:black;
@@ -59,23 +54,9 @@
 				margin-top:20px;
 				padding-left:40px;
 			}
-			.enterButton{
-				position: fixed;
-				font-size: 2em;
-				top:50%;
-				left:50%;
-			}
 			.logoMiddle{
 				margin-top:20px;
 				margin-left:-45px;
-			}
-			select{
-				width:80%;
-			}
-			.shadow {
-  				-moz-box-shadow:    -7px -7px 15px 2px black;
-  				-webkit-box-shadow: -7px -7px 15px 2px black;
-  				box-shadow:         -7px -7px 15px 2px black;
 			}
 			.form{
 				border:1px solid black;
@@ -119,13 +100,17 @@
 			.backButton, .nextButton, .startButton{
 				font:bold 16pt arial;
 				color:black;	
-				line-height:30px;			
+				line-height:30px;
+				text-align: center;			
 			}
-			.backButton:hover, .nextButton:hover, .startButton:hover{
+			.backButton:hover, .nextButton:hover{
 				text-decoration: none;
 				color:black;
 			}
-			.backButtonHolder:hover, .nextButtonHolder:hover, .startButtonHolder:hover{
+			.backButtonHolder, .nextButtonHolder{
+				text-align: center;
+			}
+			.backButtonHolder:hover, .nextButtonHolder:hover{
 				background-color: white; 
 				cursor:pointer;
 			}
@@ -173,6 +158,7 @@
 				bottom:130;
 				left:0;
 				width:32px;
+				display: none;
 			}
 			.socialButton{
 				width:30px;
@@ -201,7 +187,7 @@
 				color: white;
 				top: 0;
 				left: 0;
-				margin-top: 2%;
+				margin-top: 20px;
 				margin-left:6px;
 				z-index: 99;
 				opacity: 0.99;
@@ -220,11 +206,11 @@
 				color:white;
 			}		
 			.questionsString {
-				font: 15pt arial;														
+				font: 15pt arial;
 				color: white;
-				text-align:center;
-				line-height:36px;
-				padding-left:2%;
+				text-align: left;
+				line-height: 36px;
+				padding-left: 45px;
 			}
 			.headerText{
 				font:bold 40pt arial;
@@ -238,24 +224,45 @@
 				text-align: right;
 				padding-right:40px;
 			}
-			.firstButton{				
-				width:300px;
-				height:300px;
-				border-radius:150px;
-				font-size:50pt;
-				color:#B5C59B;
-				line-height:300px;
-				text-align:center;
-				background:white;				
-				position:absolute;
-				top:25%;
-				right:10%;
-				cursor:pointer;
+			.enterImage{
+				cursor: pointer;
+				position: absolute;
+				top: 250px;
+				right: 200px;				
 			}
-			.enterButtonText{
-				font: bold 12pt arial;
-				color:white;
-				text-align:center;
+			.topLeft{
+				width: 16%;
+				top: 0;
+				left: 0;
+				position: relative;
+				min-width: 200px;
+				min-height: 200px;
+				color: white;
+				height: 20%;
+			}
+			.topRight{
+				width: 30%;
+				min-width: 400px;
+				top: 0;
+				right: 0;
+				position: absolute;
+				height:auto;				
+			}
+			.answerBox{				
+				position: relative;
+			}
+			.answerOpaque{
+				position:absolute;
+				background-color: white;
+				opacity: 0.7;
+				z-index:2;
+				height:100%;
+				width:100%;
+			}
+			#container{
+				position:absolute;
+				z-index: 5;
+				width:100%;
 			}
 		</style>	
 			<script type="text/javascript">
@@ -287,45 +294,65 @@
 <script src="backbone.js" type="text/javascript"></script>
 <script src="http://www.parsecdn.com/js/parse-1.2.1.min.js"></script>
 <script type="text/template" id="home_page_template">
-	<div class ="row-fluid" style="opacity:0.99; text-align:center">
-		<div class ="span4 offset8 ">
-			<div class= "headerText">
+	<div class="homePageEnter">
+		<div class= "headerText">
 				Find out your </br>
 				<span style="font-size:70pt;line-height:50px">sugarscore.</span>
-			</div>			
-			<div class="filler">
-			</div>
-			<div class="filler">
-			</div>			
-			<div class="headerInfo">
-				Developed in association with Dr. V. Mohan</br>
-				at Dr. Mohan s Diabetes Speciality Center, Chennai
-			</div>	
+		</div>	
+		<div class="filler">
+		</div>
+		<div class="filler">
+		</div>			
+		<div class="headerInfo">
+			Developed in association with Dr. V. Mohan</br>
+			at Dr. Mohan s Diabetes Speciality Center, Chennai
 		</div>
 	</div>
-	<div class="firstButton">		
-			enter
-	</div>
+	<img src="imgc/enter_off.png" class="enterImage">	
 </script>
-<script type="text/template" id="header_question_template">
-	<!--div class="header">
-	</div-->
-	<div class="row-fluid absHeader">		
-		<div class="span1 questionsString">
+<script type="text/template" id="fullPageTemplate">
+	<div class="topLeft">
+		<div class="questionsString">
 			Question
 		</div>
-		<div class="question offset7 span4">
-				<h3><%=question%></h3>
+		<div class="navigate">
+			<%=fullPageObj.questionObj.count%>/<%=fullPageObj.total%>
 		</div>
 	</div>
-	<div class="navigate">
-		<%=number%>/<%=total%>
+	<div class="topRight">
+		<div class="question" count = "<%=fullPageObj.questionObj.count%>">
+			<span><%=fullPageObj.questionObj.question%></span>
+		</div>
+		<div class="answerBox">
+			<div class="answerOpaque">
+			</div>
+			<div id="container">
+				<div class="answer">
+					<%=fullPageObj.answerHtml%>
+				</div>
+				<div class="row-fluid">
+					<div class="span2" >
+						<div class="backButtonHolder" >
+							<a href="<%=fullPageObj.backRoute%>" class="backButton">back</a>
+						</div>
+					</div>
+					<div class="span8" id="errorDiv" style="color:red;text-align:center">
+						Please select an answer first.
+					</div>
+					<div class="span2" style="float:right">
+						<div class="nextButtonHolder">
+							<a href="<%=fullPageObj.nextRoute%>" class="nextButton">next</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </script>
 <script type="text/template" id="question_page_template">	
 	<div class="answerPage">
 	</div>
-	<div class ="row-fluid" style="opacity:0.99; text-align:center">
+	<div class ="row" style="opacity:0.99; text-align:center">
 		<div class ="span4 offset8">	
 			<div class="row-fluid">
 				<div class="answer span10 offset1">
@@ -716,6 +743,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		}
 	};
 	var gender = 'b';
+	var selectedAnswers = [];
 	var ApplicationView = Backbone.View.extend({
 		el : "#habits",
 		flowObject: {},
@@ -741,34 +769,28 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			this.flowObject.start = true;
 			
 		},
-		data:new Array(),
-		createFormElement : function(){
-			this.$form.append("<input name='" + this.question +"' value = '" + this.answer +  "' type='text'/>");
-		},
 		calculateScore: function(subtract){	
-			if(this.answer != undefined && this.question != undefined){
-				this.createFormElement();
-			}	
 			if(this.scoreHere != undefined){				
 				if(this.scoreHere == 998){
 					gender = "f";
 				} else if(this.scoreHere == 999){
 					gender = "m";
-				} else {
-					if(subtract !== undefined && subtract == true){
-						this.score = this.score - parseInt(this.scoreHere);
-					} else {
-						this.score = this.score + parseInt(this.scoreHere);
-					}	
-				}								
+				} 						
 			}			
 		},
 
-		showScorePage: function(){		
+		showScorePage: function(){	
+			var score = 0;
+			for(var id in selectedAnswers){
+				var selectedAnswer = selectedAnswers[id];
+				if(selectedAnswer.scoreHere != 998 && selectedAnswer.scoreHere != 999){
+					score = score + selectedAnswer.scoreHere;
+				}
+			}	
 			this.flowObject.start = false;
 			this.$el.empty();			
 			var positiveScore = 100 - this.score 
-			var template = _.template($("#score_template").html(),{score:this.score, question:"Did you know?"});
+			var template = _.template($("#score_template").html(),{score:score, question:"Did you know?"});
 			this.$el.append(template);
 			var self = this;
 			$(".backgroundImg").css("background-image","url('imgc/final_bg.jpg')");	
@@ -803,8 +825,14 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			var template= _.template($("#home_page_template").html(),{question:"Are you at risk for Diabetes?",answer:"Take this one minute test to find out",startRoute:"#questions/1"});
 			this.$el.empty();
 			this.$el.append(template);			
-			$(".backgroundImg").css("background-image","url('imgc/001.jpg')");	
-			$(".firstButton").click(function(){
+			$(".backgroundImg").css("background-image","url('imgc/001.jpg')");
+			$(".enterImage").mouseover(function(){
+				$(".enterImage").attr("src","imgc/enter_on.png");
+			})		
+			.mouseout(function(){
+				$(".enterImage").attr("src","imgc/enter_off.png");
+			})		
+			.click(function(){
 				router.navigate("#questions/1", {trigger:true});
 			})
 		},
@@ -818,23 +846,9 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			} else {
 				this.showScorePage();
 			}
-		},		
-		isBackAction: function(){
-			var currentRoute = Backbone.history.fragment;
-			if(this.currentPage == ""){
-				return true;
-			} else if(this.currentPage == "score"){
-				return true;
-			} else if(parseInt(this.currentPage) > parseInt(currentRoute)){
-				this.calculateScore(true);
-				return true;
-			}
-			return false;
-		},
+		},				
 		showNextFlowObject: function(objId){	
-			if(!this.isBackAction()){
-				this.calculateScore();
-			}					
+			this.calculateScore();			
 			var obj = this.getNextFlowObject(objId);
 			if(obj == null){				
 				this.showScorePage();
@@ -847,36 +861,52 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 					} else {
 						answerHtml = _.template($("#answer_multiple_template").html(),{options:obj.options});
 					}				
-					headerTemplate = _.template($("#header_question_template").html(), {question: obj.question, number: obj.count, total:flowOfPages.flow.length})
+					//headerTemplate = _.template($("#header_question_template").html(), {question: obj.question, number: obj.count, total:flowOfPages.flow.length})
 					var backRoute = obj.count == 1 ? "#home" : "#questions/" + (obj.count -1); 
 					var nextRoute = obj.count == 5 ? "#score" : "#questions/" + (obj.count +1);
-					template = _.template($("#question_page_template").html(), {img: obj.img, answer:answerHtml, backRoute:backRoute, nextRoute: nextRoute});							
+					//template = _.template($("#question_page_template").html(), {img: obj.img, answer:answerHtml, backRoute:backRoute, nextRoute: nextRoute});							
+					var fullPage = {};
+					fullPage.questionObj = obj;
+					fullPage.answerHtml = answerHtml;
+					fullPage.total = flowOfPages.flow.length;
+					fullPage.backRoute = backRoute;
+					fullPage.nextRoute = nextRoute;
+					template = _.template($("#fullPageTemplate").html(), {fullPageObj: fullPage});
 				}		
 				else if(obj.factText){
 					template = _.template($("#fact_page_template").html() , {img: obj.img, factText: obj.factText});
 				}
 				this.$el.empty();
-				this.$el.append(headerTemplate);
 				this.$el.append(template);
 				imgUrl = "url('" + obj.img + "')";
-				if(obj.img == "imgc/5_was.jpg"){
-					this.img = $('<img/>', {'src': obj.img} );
-					this.img.appendTo(".backgroundImg"); 
-					this.img.attr("style","height:100%;width:100%;top:0;left:0;position:absolute;z-index:-99")
-					$(".backgroundImg").css("background-image","");	
-				} else {
-					$(".backgroundImg").css("background-image",imgUrl);	
-				}
-				//$(".imgForBc").attr("src", obj.img);
+				$(".backgroundImg").css("background-image",imgUrl);	
+
 				if(obj.question){
-					var answerPage = $(".answerPage");		
-					var height = parseInt(answerPage.next().height());
-					$(".answerPage").height(height + "px");
-				}	
+					var answerBox = $(".answerOpaque");		
+					var height = parseInt(answerBox.next().height());
+					answerBox.height(height + "px");
+				}
 				this.setAnswerBehaviour();
 				this.errorDiv = $("#errorDiv");
 				this.errorDiv.hide();
 				this.currentPage = Backbone.history.fragment;						
+			}
+		},
+		qidExists : function(qid){
+			for(var id in selectedAnswers){
+				var selectedAnswer = selectedAnswers[id];
+				if(selectedAnswer.qid == qid){
+					return true;
+				}
+			}
+			return false;
+		},
+		getSelectedAnswer : function(qid){
+			for(var id in selectedAnswers){
+				var selectedAnswer = selectedAnswers[id];
+				if(selectedAnswer.qid == qid){
+					return selectedAnswer;
+				}
 			}
 		},
 		setAnswerBehaviour: function(){
@@ -891,10 +921,20 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
             				if(currentAns !== undefined){
             			 		currentAns.removeClass('checked');
             			 	}
-								obj.addClass('checked');
-								currentAns = obj;
-								self.answer = currentAns.html();
-								self.scoreHere = currentAns.attr("value");
+							obj.addClass('checked');
+							currentAns = obj;
+							var qid = $('.question').attr("count");
+							var selectedAnswer;
+							if(!self.qidExists(qid)){
+								selectedAnswer = {};
+								selectedAnswer.qid = $('.question').attr("count");
+								selectedAnswers.push(selectedAnswer);					
+							} else {
+								selectedAnswer = self.getSelectedAnswer(qid);								
+							}
+							selectedAnswer.answer = currentAns.html();
+							selectedAnswer.scoreHere = self.scoreHere = parseInt(currentAns.attr("value"));
+																					
             			}
         			)};        		
         		clickHandler(option);
