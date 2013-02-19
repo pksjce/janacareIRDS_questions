@@ -285,6 +285,7 @@
 <script src="bootstrap/js/bootstrap.js" type="text/javascript"></script>
 <script src="underscore.js" type="text/javascript"></script>
 <script src="backbone.js" type="text/javascript"></script>
+<script src="http://www.parsecdn.com/js/parse-1.2.1.min.js"></script>
 <script type="text/template" id="home_page_template">
 	<div class ="row-fluid" style="opacity:0.99; text-align:center">
 		<div class ="span4 offset8 ">
@@ -492,7 +493,7 @@
 						Mobile
 					</div>
 					<div class="span8">
-						<input style="height:4%;width:100%" type="text" id="#mobileNumber" >					
+						<input style="height:4%;width:100%" type="text" id="mobileNumber" >					
 					</div>
 					<div class="span2">
 						<input id="submitButton" type="button" value="Submit" class="btn btn-success">
@@ -607,7 +608,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],
 			genderType: "f",
-			img: "imgc/5_was_crop.jpg",
+			img: "imgc/006c.jpg",
 			count:5
 		},
 		{
@@ -627,7 +628,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 			],
 			genderType: "m",
-			img: "imgc/5_was_crop.jpg",
+			img: "imgc/006c.jpg",
 			count:5
 		},
 		{
@@ -769,23 +770,29 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			var positiveScore = 100 - this.score 
 			var template = _.template($("#score_template").html(),{score:this.score, question:"Did you know?"});
 			this.$el.append(template);
+			var self = this;
 			$(".backgroundImg").css("background-image","url('imgc/final_bg.jpg')");	
 			//$(".imgForBc").attr("src", "imgc/final_bg.jpg");
 			$("#submitButton").click(function(){
-				var number = $("#mobileNumber").val();
+				var number = parseInt($("#mobileNumber").val());
 				/*var pattern = /^(7|8|9)[\d]{9,9}$/;
 				if(!pattern.test(number)){
 					alert("Please enter a valid mobile number");
 					return false;
 				}*/
-				$.ajax({
-					url: 'https://docs.google.com/forms/d/1_fnGIhWYTmMTpYLgoJ49HBjodxIsX6bU5Hg2_6q37Js/formResponse', 
-					data :{'entry.645136839' : number}, 
-					type:"POST"
-				})
-				.done(console.log('Success'))
-				.fail(console.log('Failed'));
+				self.sendToParse(number, positiveScore);
 			});
+		},
+		sendToParse: function(number, score){
+			Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
+		    var instance = null;
+		    var PhoneObject = Parse.Object.extend("Phone");
+		    var phone = new PhoneObject();
+		    phone.save({phone: number, sentSMS: false, score:score}, {
+		        success: function(object) {
+		    	    alert("yay! it worked");
+		        }
+		      });
 		},
 		showHeader: function(){
 
