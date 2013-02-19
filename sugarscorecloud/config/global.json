@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Sugar Score": {
+            "applicationId": "AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", 
+            "masterKey": "MzKmu9oKVBbrNq6JUVPe2iPAUhzrqDkuf9AwnYh4"
+        }, 
+        "_default": {
+            "link": "Sugar Score"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.1"
+    }
+}
