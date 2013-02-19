@@ -2,6 +2,7 @@ Parse.Cloud.afterSave("Phone", function(request) {
 
     var phone = request.object.get("phone");
     var objectId = request.object.id;
+    var score = request.object.get("score");
 
     //TODO: Get score
     
@@ -17,7 +18,7 @@ Parse.Cloud.afterSave("Phone", function(request) {
               var instance = phoneObject;
               console.log('Phone number is ' + phone);
               console.log('Object id is ' + objectId);
-              var msg = encodeURI('Click link to download your food habits app - http://goo.gl/ODLqh');
+              var msg = encodeURI('Your sugar score is ' + score + '. Click link to download your food habits app - http://goo.gl/ODLqh');
               var sms_url = 'http://enterprise.smsgupshup.com/GatewayAPI/rest?method=SendMessage&send_to=' + phone + '&msg=' + msg + '&msg_type=TEXT&userid=2000071415&auth_scheme=plain&password=cpKeTH&v=1.1&format=text'
 
               //To ensure this is only done once & prevent recursive callbacks to after save
