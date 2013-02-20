@@ -170,7 +170,7 @@
 				text-align: center;
 				opacity: 0.99;
 				padding: 30px;
-				color:black;
+				color:#916272;
 			}
 			.downloadText{
 				font: 11pt arial;
@@ -421,7 +421,7 @@
 	</div>	
 	<div class="row-fluid">
 		<div class="scorePage span4">			
-			<% if (score >80) {%>
+			<% if (score <20) {%>
 				<div class="score">
 					<%=score%>
 				</div>
@@ -434,7 +434,7 @@
 				</div>
 			
 
-			<% } else if(score <=80 && score >60){%>
+			<% } else if(score >=20 && score <40){%>
 				<div class="score">
 					<%=score%>
 				</div>					
@@ -446,7 +446,7 @@
 					CAN BE BETTER
 				</div>
 
-			<% } else if(score <= 60 && score >40){%>
+			<% } else if(score >= 40 && score <60){%>
 				<div class="score">
 					<%=score%>
 				</div>					
@@ -458,7 +458,7 @@
 					HMMMM....ALRIGHT
 				</div>
 			
-			<% } else if(score <= 40 && score >20){%>
+			<% } else if(score >= 60 && score <80){%>
 				<div class="score">
 					<%=score%>
 				</div>					
@@ -470,7 +470,7 @@
 					GOOD
 				</div>
 
-			<% } else if(score <=20){%>		
+			<% } else if(score >=80){%>		
 
 				<div class="score">
 					<%=score%>
@@ -491,11 +491,11 @@
 			</div>
 			<img src="imgc/ratio.png" style="padding-left:30%;width:36%">			
 			<div class="helpText">
-				<span style="color:lightblue"> If you lose 7% of Body Weight...</span>
+				<span style="color:#7DB7D1"> If you lose 7% of Body Weight...</span>
 				</br>
-				<span style="color:lightpink"> That reduces the risk of </span>
+				<span style="color:#F37979"> That reduces the risk of </span>
 				</br>
-				<span style="color:lightpink"> developing diabetes by 58% </span>
+				<span style="color:#F37979"> developing diabetes by 58% </span>
 				
 			</div>
 			<div class="row-fluid" >
@@ -525,6 +525,8 @@
 					<div class="span2">
 						<input id="submitButton" type="button" value="Submit" class="btn btn-success">
 					</div>
+				</div>
+				<div class="numberSent">
 				</div>
 				<div class="helpText">
 					Enter your mobile number to recieve </br>
@@ -583,16 +585,16 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		},
 		{
 			id:2,
-			question: "How active are you in a day?											",
+			question: "What is your level of physical activity?											",
 			answerType: "multiSelect",
 			options: [{
-				text:"10-20 mins",
+				text:"No exercise AND sedentary work",
 				score:30
 			},{
-				text:"20-40 mins",
+				text:"Exercise regularly OR strenous work",
 				score:20
 			},{
-				text:"more than 40 mins",
+				text:"Exercise regularly AND strenous work",
 				score:0
 			}
 			],
@@ -803,6 +805,8 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 					return false;
 				}*/
 				self.sendToParse(number, positiveScore);
+				$(".numberSent").html("Thank you! You will recieve an SMS with the download link in some time.")
+				$("#mobileNumber").val("");
 			});
 		},
 		sendToParse: function(number, score){
@@ -812,7 +816,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		    var phone = new PhoneObject();
 		    phone.save({phone: number, sentSMS: false, score:score}, {
 		        success: function(object) {
-		    	    alert("yay! it worked");
+		    	    $(".numberSent").html("We have sent an SMS to your Phone number");
 		        }
 		      });
 		},
