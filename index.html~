@@ -4,7 +4,6 @@
 		<style type="text/css">
 			body{
 				min-width:700px;
-				background-color: #B5C59B;
 			}
 			.backgroundImg { 
 			    background: url("") no-repeat center center fixed; 
@@ -50,7 +49,11 @@
 			.anchorDec{
 				text-decoration: none;
 				color:black;
-			}			
+			}
+			.scorePage{
+				margin-top:20px;
+				padding-left:40px;
+			}
 			.logoMiddle{
 				margin-top:20px;
 				margin-left:-45px;
@@ -114,14 +117,14 @@
 			.checked{
 				background-color: white	;
 				width:100%;
-				opacity:0.9;
-			}
-			.hovered{
-				background-color: white;
-				opacity:0.6;
+				opacity:0.8;
 			}
 			[name = 'answerOptions'] {
 				cursor :pointer;
+			}
+			[name = 'answerOptions']:hover {
+				background-color: white	;				
+				opacity:0.8;
 			}
 			.infoButton{
 				cursor: pointer;
@@ -137,7 +140,7 @@
 					height: 20px
 			}	
 			.score{
-				font: 65pt arial;
+				font: bold 120pt arial;
 				color:white;
 				text-align: left;
 			}
@@ -167,20 +170,14 @@
 				margin:10px;
 			}
 			.helpText{
-				font: 12pt arial;
+				font: bold 12pt arial;
 				text-align: center;
 				opacity: 0.99;
-				padding: 20px 30px 0 30px;
+				padding: 30px 30px 0 30px;
 				color:#916272;
 			}
-			.mobileText{
-				font: 100;pt arial;
-				text-align: center;
-				opacity: 0.99;
-				padding: 70px 30px 0 30px
-			}
 			.downloadText{
-				font: 10pt arial;
+				font: 11pt arial;
 				text-align: justify;
 				opacity: 0.99;				
 			}
@@ -188,8 +185,6 @@
 				padding-left:30px;
 				padding-right: 30px;
 				opacity:0.99;
-				position:relative;
-				margin-top:30px;
 			}
 			.navigate {
 				font: bold 80pt arial;
@@ -204,13 +199,12 @@
 			}
 			.takeActionText {
 				text-align: center;
-				font: 18pt arial;
+				font: bold 14pt arial;
 				line-height: 1.5;
-				padding-top:20px;
+				padding-top:30px;
 			}
 			.foodHabits {
-				height:500px;
-				margin:0 150px;	
+				height:15%;
 			}	
 			.submitButton{
 				background-color: #B5c59b
@@ -243,7 +237,7 @@
 				top: 250px;
 				right: 20px;				
 			}
-			.topLeft, .scoreInfo{
+			.topLeft{
 				width: 16%;
 				top: 0;
 				left: 0;
@@ -253,19 +247,7 @@
 				color: white;
 				height: 20%;
 			}
-			.scoreInfo{
-				width: 50%;
-				top: 0;
-				left: 0;
-				position: relative;
-				min-width: 200px;
-				min-height: 200px;
-				color: white;
-				height: 100%;	
-				padding-left: 40px;
-				text-align: left;
-			}
-			.topRight, .helpInfo{
+			.topRight{
 				width: 30%;
 				min-width: 400px;
 				top: 0;
@@ -273,54 +255,23 @@
 				position: absolute;
 				height:auto;				
 			}
-			.answerBox, .infoBox{				
+			.answerBox{				
 				position: relative;
 			}
-			.answerOpaque, .infoOpaque{
+			.answerOpaque{
 				position:absolute;
 				background-color: white;
 				opacity: 0.7;
 				z-index:2;
 				height:100%;
 				width:100%;
-			}
-			.infoOpaque{
-				position:absolute;
-				background-color: white;
-				opacity: 0.7;
-				z-index:2;
-				height:100%;
-				width:100%;	
 			}
 			#container{
 				position:absolute;
 				z-index: 5;
 				width:100%;
-				overflow:auto;				
 			}
-			.helpInfo{
-				top:0;
-				right:0;
-				position:absolute;
-				width:30%;
-				min-width:400px;
-				height:auto;
-				opacity:0.99;
-			}
-			.numberSent{
-				min-height: :30px;
-			}
-			.downloadBox{
-				padding-top:30px;
-			}
-			.logo{
-				position:absolute;
-				left:0;
-				bottom:0;
-				height:40px;
-				width:150px;
-			}
-			</style>	
+		</style>	
 			<script type="text/javascript">
 
 				var _gaq = _gaq || [];
@@ -338,7 +289,7 @@
 	</head>
 <body>
 
-<div class="backgroundImg" id="backgroundDiv">
+<div class="backgroundImg">
 	<div id="habits">
 	</div>
 	<!--div class="footer">		
@@ -448,7 +399,7 @@
 </script>
 <script type="text/template" id="answer_multiple_template">
 	<div class="answer">		
-		<div style="height:15px">
+		<div class="filler">
 		</div>
 		<% var checked = "checked"; %>
 		<% _.each(options, function(option){ %>				
@@ -465,156 +416,17 @@
 			<%}checked = "";});%>
 	</div>
 </script>
-<script type="text/template" id="score_page_template">
-	<div class="scoreInfo">
-		<div style="color:white; text-align:left;font:bold 36pt arial">
-			Your sugarscore is...
-		</div>
-				
-		<% if (score >80) {%>
-			<div class="score">
-				<%=score%>
-			</div>
-			<div class="scoreAction">
-				 You are at high risk for diabetes. You should definitely get your blood sugar tested at a nearby lab or hospital.
-			</div>					
-			<div class="filler"></div>
-			<div class="scoreStatus">
-				RED ALERT!
-			</div>
-		
-
-		<% } else if(score <=80 && score >60){%>
-			<div class="score">
-				<%=score%>
-			</div>					
-			<div class="scoreAction">
-				You might be at risk for diabetes. You should focus on reducing some weight and becoming more physically active.
-			</div>				
-			<div class="filler"></div>
-			<div class="scoreStatus">
-				CAN BE BETTER
-			</div>
-
-		<% } else if(score <= 60 && score >40){%>
-			<div class="score">
-				<%=score%>
-			</div>					
-			<div class="scoreAction">
-				You can definitely improve your habits score by reducing some weight and becoming more physically active
-			</div>	
-			<div class="filler"></div>
-			<div class="scoreStatus">
-				HMMMM....ALRIGHT
-			</div>
-		
-		<% } else if(score <= 40 && score >20){%>
-			<div class="score">
-				<%=score%>
-			</div>					
-			<div class="scoreAction">
-				Your risk for diabetes is low.
-			</div>								
-			<div class="filler"></div>
-			<div class="scoreStatus">
-				GOOD
-			</div>
-
-		<% } else if(score <=20){%>		
-
-			<div class="score">
-				<%=score%>
-			</div>				
-						
-			<div class="scoreAction">
-				Your are not only at low risk for diabetes but also a role model for others
-			</div>
-			<div class="filler"></div>
-			<div class="scoreStatus">
-				EXCELLENT. 
-			</div>	
-			
-		<% } %>
-		<div class="logo">
-			<img src="imgc/bot_logo.png">
-		</div>
-	</div>
-	<div class="helpInfo">
-		<div class="question">
-			Did you know?
-		</div>
-		<div class="infoBox">
-			<div class="infoOpaque">
-			</div>
-			<div id="container" >
-				<!--img src="imgc/ratio.png" style="padding-left:30%;width:40%;height:100px;padding-top:30px"-->			
-				<div class="helpText">
-					<span style="color:#7DB7D1"> 7% weight loss -> reduces diabetes risk by 58%</span>
-					<!--/br>
-					<span style="color:#F37979"> That reduces the risk of </span>
-					</br>
-					<span style="color:#F37979"> developing diabetes by 58% </span-->
-					
-				</div>
-				<!--div class="row-fluid" >
-					<div class="span10 offset1 helpText" >
-						You can easily achieve this through healthier </br>
-						eating  and increased  physical activity
-					</div>
-				</div>
-				<div class="takeActionText">
-					Take action, reduce your risk for </br>
-					developing diabetes by</br>
-					downloading the free app:</br>
-					<div class="filler">
-					</div>
-					<img  class= "foodHabits" src="imgc/food_habits.jpg">
-				</div-->
-				<div class="filler">
-				</div>
-				<img  class= "foodHabits" src="imgc/food_habits_app.png">
-				<div class="phBox">
-					<div style="font:12pt arial;text-align:left;width:30px;position:absolute;line-height: 32px; margin-left:20px">
-						Mobile:
-					</div>
-					<div style="position:absolute;margin-left:90px">
-						<input style="height:32px;width:200px;" type="text" id="mobileNumber" >					
-					</div>
-					<div style="position:absolute;margin-left:310px">
-						<input id="submitButton" type="button" value="Submit" class="btn btn-success">
-					</div
-				</div>
-				<div class="numberSent">
-				</div>
-				<div class="mobileText">
-					Enter your mobile number to recieve </br>
-					the <b>food:habits</b> app, to help you </br>
-					manage your lifestyle.</br>
-				</div>
-				
-		
-				<div class="row-fluid downloadBox">
-					<div class="span5 offset2 downloadText">
-						Or download <b>food:habits</b> with</br>
-						the Google Play<sup>TM</sup> Store app
-					</div>
-					<div class="span5">					
-							<img src="imgc/google_play.png" alt = "Download food:habits" onclick="javascript:window.open('https://play.google.com/store/apps/details?id=com.janacare.foodtrack', '_blank')" style="cursor:pointer;min-height:60px">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>		
-</script>
 <script type="text/template" id="score_template">
 	<div class="row-fluid absHeader">
-		<div class="span5" style="color:white; text-align:center;font:bold 36pt arial">
+		<div class="span4" style="color:white; text-align:center;font:bold 36pt arial">
 			Your sugarscore is...
 		</div>
-		<div class="question offset3 span4">
+		<div class="question offset4 span4">
 			<h4><%=question%></h4>
 		</div>
 	</div>
+	<div class="scoreDetailPage">
+	</div>	
 	<div class="row-fluid">
 		<div class="scorePage span4">			
 			<% if (score >80) {%>
@@ -682,7 +494,69 @@
 				
 			<% } %>
 		</div>	
+		<div class="offset4 span4" style="opacity:0.99">
+			<div class="filler">
+			</div>
+			<img src="imgc/ratio.png" style="padding-left:30%;width:36%">			
+			<div class="helpText">
+				<span style="color:#7DB7D1"> If you lose 7% of Body Weight...</span>
+				</br>
+				<span style="color:#F37979"> That reduces the risk of </span>
+				</br>
+				<span style="color:#F37979"> developing diabetes by 58% </span>
 				
+			</div>
+			<div class="row-fluid" >
+				<div class="span10 offset1 helpText" >
+					You can easily achieve this through healthier </br>
+					eating  and increased  physical activity
+				</div>
+			</div>
+			<div class="takeActionText">
+				Take action, reduce your risk for </br>
+				developing diabetes by</br>
+				downloading the free app:</br>
+				<div class="filler">
+				</div>
+				<img  class= "foodHabits" src="imgc/food_habits.jpg">
+			</div>
+			<div class="filler">
+			</div>			
+			<div class="phBox">
+				<div class="row-fluid">		
+					<div class="span2" style="font:bold 12pt arial;text-align:left;padding-left: 30px;line-height: 25px;">
+						Mobile
+					</div>
+					<div class="span8">
+						<input style="height:32px;width:100%" type="text" id="mobileNumber" >					
+					</div>
+					<div class="span2">
+						<input id="submitButton" type="button" value="Submit" class="btn btn-success">
+					</div>
+				</div>
+				<div class="numberSent">
+				</div>
+				<div class="helpText">
+					Enter your mobile number to recieve </br>
+					the <b>food:habits</b> app, to help you </br>
+					manage your lifestyle.</br>
+				</div>
+				
+				<div class="filler">
+				</div>		
+
+			</div>
+
+			<div class="row-fluid downloadBox">
+				<div class="span5 offset2 downloadText">
+					Or download <b>food:habits</b> with</br>
+					the Google Play<sup>TM</sup> Store app
+				</div>
+				<div class="span5">					
+						<img src="imgc/google_play.png" alt = "Download food:habits" onclick="javascript:window.open('https://play.google.com/store/apps/details?id=com.janacare.foodtrack', '_blank')" style="cursor:pointer">
+				</div>
+			</div>
+		</div>		
 	</div>	
 	<div class="socialTab">
 		<a href="https://www.facebook.com/dialog/feed?
@@ -757,16 +631,16 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		},
 		{
 			id:4,
-			question: "What is your waist size?",
+			question: "What is your waist measurement?",
 			answerType: "multiSelect",
 			options:[{
-				text:"Less than 31 inches",
+				text:"Less than 80cm?",
 				score:0
 			},{
-				text:"Between 31 and 35 inches",
+				text:"Between 80cm and 90cm",
 				score:10
 			},{
-				text:"Greater than 35 inches",
+				text:"Greater than 90cm",
 				score:20
 			}
 			],
@@ -776,17 +650,17 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		},
 		{
 			id:4,
-			question: "What is your waist size?",
+			question: "What is your waist measurement?",
 			answerType: "multiSelect",
 			options:[
 			{
-				text:"Less than 35 inches",
+				text:"Less than 90cm?",
 				score:0
 			},{
-				text:"Between 35 and 40 inches",
+				text:"Between 90cm and 100cm",
 				score:10
 			},{
-				text:"Greater than 40 inches",
+				text:"Greater than 100cm",
 				score:20
 			}
 			],
@@ -926,10 +800,10 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			this.flowObject.start = false;
 			this.$el.empty();			
 			var positiveScore = 100 - this.score; 
-			var template = _.template($("#score_page_template").html(),{score:score, question:"Did you know?"});
+			var template = _.template($("#score_template").html(),{score:score, question:"Did you know?"});
 			this.$el.append(template);
 			var self = this;
-			$(".backgroundImg").css("background-image","url('')");	
+			$(".backgroundImg").css("background-image","url('imgc/final_bg.jpg')");	
 			//$(".imgForBc").attr("src", "imgc/final_bg.jpg");
 			$("#submitButton").click(function(){
 				var number = parseInt($("#mobileNumber").val());
@@ -942,9 +816,6 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				$(".numberSent").html("Thank you! You will recieve an SMS with the download link in some time.")
 				$("#mobileNumber").val("");
 			});
-			var answerBox = $(".infoOpaque");		
-			var height = parseInt($("body").prop('scrollHeight'));
-			answerBox.height(height + "px");
 		},
 		sendToParse: function(number, score){
 			Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
@@ -1020,7 +891,6 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				this.$el.empty();
 				this.$el.append(template);
 				imgUrl = "url('" + obj.img + "')";
-				$("#backgroundDiv").addClass("backgroundImg");
 				$(".backgroundImg").css("background-image",imgUrl);	
 
 				if(obj.question){
@@ -1054,7 +924,6 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		setAnswerBehaviour: function(){
 			var answerOptions = $('[name="answerOptions"]');
 			var currentAns;
-			var currentHover;
 			var self = this;
 			for(var i=0;i<answerOptions.length; i++){
 				var option = answerOptions.eq(i);				
@@ -1063,8 +932,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
             			function() {
             				if(currentAns !== undefined){
             			 		currentAns.removeClass('checked');
-            			 	} 
-            			 	obj.removeClass('hovered');	 	
+            			 	}
 							obj.addClass('checked');
 							currentAns = obj;
 							var qid = $('.question').attr("count");
@@ -1080,25 +948,8 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 							selectedAnswer.scoreHere = self.scoreHere = parseInt(currentAns.attr("value"));
 																					
             			}
-        			)}; 
-        		function mouseoverHandler(obj){
-        			obj.mouseover(
-        				function(){
-        					if(!obj.hasClass('checked')){
-        						obj.addClass('hovered');
-        					}
-        				}
-        		)};
-        		function mouseoutHandler(obj){
-        			obj.mouseout(
-        				function(){
-        					obj.removeClass('hovered');
-        				}
-        		)};       			
-
+        			)};        		
         		clickHandler(option);
-        		mouseoverHandler(option);
-        		mouseoutHandler(option);
 			}
 			$(function(){
 				$('.backButtonHolder').click(function(){
@@ -1119,7 +970,16 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 					self.removeError();
 					return true;
 				}
-			});		
+			});
+			$('.backButton').click(function(){				
+				if(currentAns == undefined){
+					self.showError();
+					return false;
+				} else {
+					self.removeError();
+					return true;
+				}
+			});			
 		},
 		showError : function(){
 			this.errorDiv.show();			
@@ -1138,7 +998,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				if(nextFlowObject["type"] == 'q'){
 					for (id in questions){
 						var question = questions[id];
-						var compareGender = gender == undefined ? "m" : gender
+						var compareGender = this.gender == undefined ? "m" : this.gender
 						if(question.count == objId && (question.genderType == compareGender || question.genderType == 'b')){							
 							return question;
 						} 
@@ -1168,7 +1028,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 	var router = new Router();
 	router.on('route:score', function(){
 		console.log("this is score");
-		app.showNextFlowObject(100);		
+		app.showNextFlowObject(100);
 	});
 	router.on('route:questions', function(questionId){
 		console.log("this is a question");
