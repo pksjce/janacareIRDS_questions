@@ -1108,7 +1108,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				if(nextFlowObject["type"] == 'q'){
 					for (id in questions){
 						var question = questions[id];
-						var compareGender = this.gender == undefined ? "m" : this.gender
+						var compareGender = gender == undefined ? "m" : gender
 						if(question.count == objId && (question.genderType == compareGender || question.genderType == 'b')){							
 							return question;
 						} 
