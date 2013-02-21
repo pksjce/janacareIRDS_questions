@@ -114,14 +114,14 @@
 			.checked{
 				background-color: white	;
 				width:100%;
-				opacity:0.8;
+				opacity:0.6;
 			}
 			[name = 'answerOptions'] {
 				cursor :pointer;
 			}
 			[name = 'answerOptions']:hover {
 				background-color: white	;				
-				opacity:0.8;
+				opacity:0.9;
 			}
 			.infoButton{
 				cursor: pointer;
@@ -1089,16 +1089,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 					self.removeError();
 					return true;
 				}
-			});
-			$('.backButton').click(function(){				
-				if(currentAns == undefined){
-					self.showError();
-					return false;
-				} else {
-					self.removeError();
-					return true;
-				}
-			});			
+			});		
 		},
 		showError : function(){
 			this.errorDiv.show();			
