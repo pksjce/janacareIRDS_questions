@@ -228,19 +228,19 @@
 			.headerText{
 				font:bold 36pt arial;
 				color:white;
-				text-align: right;
-				padding-right:40px;
+				text-align: left;
+				padding-left:40px;
 			}
 			.headerInfo{
 				font: 12pt arial;
 				color:white;
-				text-align: right;
-				padding-right:40px;
+				text-align: left;
+				padding-left:40px;
 			}
 			.enterImage{
 				cursor: pointer;
 				position: absolute;
-				top: 250px;
+				top: 20px;
 				right: 20px;				
 			}
 			.topLeft, .scoreInfo{
@@ -320,6 +320,21 @@
 				height:40px;
 				width:150px;
 			}
+			.learnMore{
+				font:11pt arial;
+				color:white;
+				text-align: left;
+				padding-left:40px;
+				cursor:pointer;
+			}
+			.moreInfo{
+				background-color: white;
+				opacity:0.8;
+				margin-left:60px;
+				width:200px;
+				font:11pt arial;
+				border:2px solid white;
+			}
 			</style>	
 			<script type="text/javascript">
 
@@ -362,6 +377,12 @@
 		<div class="headerInfo">
 			Developed in association with Dr. V. Mohan</br>
 			at Dr. Mohan&#39;s Diabetes Speciality Center, Chennai
+		</div>
+		<div class="learnMore">
+			Learn More..			
+		</div>		
+		<div class="moreInfo">
+			We ll show a lot of info and stuff here
 		</div>
 	</div>
 	<img src="imgc/enter_off.png" class="enterImage">	
@@ -975,6 +996,13 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			})		
 			.click(function(){
 				router.navigate("#questions/1", {trigger:true});
+			})
+			$(".moreInfo").hide();	
+			$(".learnMore").mouseover(function(){
+				$(".moreInfo").show();
+			})
+			.mouseout(function(){
+				$(".moreInfo").hide();
 			})
 		},
 		changeRoute: function(){
