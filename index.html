@@ -5,7 +5,6 @@
 			body{
 				min-width:700px;
 				background-color: #B5C59B;
-				overflow:hidden;
 			}
 			.backgroundImg { 
 			    background: url("") no-repeat center center fixed; 
@@ -412,7 +411,7 @@
 					<%=fullPageObj.answerHtml%>
 				</div>
 				<div class="filler"></div>
-				<div class="row-fluid">
+				<div class="row-fluid" id="answer<%=fullPageObj.questionObj.count%>">
 					<div class="span2" >
 						<div class="backButtonHolder" >
 							<a href="<%=fullPageObj.backRoute%>" class="backButton">back</a>
@@ -573,14 +572,11 @@
 			</div>
 			<div id="infoContainer">
 				<div class="helpText">
-					You can easily achieve this</br>
-					thorugh healthier eating.
-				</div>
-				<div class="helpText">
 					Get started by downloading</br>
-					the <b>food:habits</b> android app
+					the <b>food:habits</b> android app <br>
+					to help you eat healthier.
 				</div>
-				<img src="imgc/food_habits_mobile.png" style="height:350px;width:200px;margin-left:30%">
+				<img src="imgc/food_habits_mobile.png" style="height:350px;width:215px;margin-left:25%">
 				<div class="phBox">
 					<span style="font:12pt arial;text-align:left;width:5%;line-height: 32px; margin-left:10%">
 						Mobile:
@@ -602,6 +598,9 @@
 					<div class="span5">					
 							<img src="imgc/google_play.png" alt = "Download food:habits" onclick="javascript:window.open('https://play.google.com/store/apps/details?id=com.janacare.foodtrack', '_blank')" style="cursor:pointer;min-height:45px">
 					</div>
+				</div>
+				<div style="color:white;font:9pt arial;text-align:justify;padding:10px">
+				The sugarscore has been designed to assess the risk of type2 diabetes on the basis of the responses provided by you to the six questions. The results of sugarscore will not take in to account any other associated illness or health condition.The results should not be construed as medical advice or a substitute for medical advice. Please contact your doctor for detailed diagnosis.
 				</div>
 			</div>
 		</div>
@@ -720,7 +719,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		},
 		{
 			id:2,
-			question: 'How physically demanding is your work (occupation)',											
+			question: 'How physically demanding is your work?',											
 			answerType: "multiSelect",
 			options: [{
 				text:"Mild",
@@ -730,7 +729,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				score:10
 			},{
 				text:"Strenous/Vigorous",
-				score:10
+				score:0
 			}
 			],
 			genderType: "b",
@@ -817,17 +816,17 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			answerType: "multiSelect",
 			options: [{
 				text:"Rarely",
-				score:20
+				score:10
 			},{
-				text:"3 or more times a week",
+				text:"About 3 times a week",
 				score:10
 			},{
 				text:"Almost daily",
-				score:10
+				score:0
 			}
 			],
 			genderType: "b",
-			img: "imgc/3_act.jpg",
+			img: "imgc/ddlj.jpg",
 			count:4
 		}
 
@@ -1052,20 +1051,19 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				}
 				this.$el.empty();
 				this.$el.append(template);
-				imgUrl = "url('" + obj.img + "')";
-				$("#backgroundDiv").addClass("backgroundImg");
-				$(".backgroundImg").css("background-image",imgUrl);	
-
 				if(obj.question){
 					var answerBox = $(".answerOpaque");		
 					var height = parseInt(answerBox.next().height());
 					answerBox.height(height + "px");
-				}
-				this.setAnswerBehaviour();
+				}				
 				this.errorDiv = $("#errorDiv");
 				this.errorDiv.hide();
 				this.currentPage = Backbone.history.fragment;						
-				this.setcurrentAns(this.currentPage);							
+				this.setcurrentAns(this.currentPage);	
+				this.setAnswerBehaviour(this.currentPage);
+				imgUrl = "url('" + obj.img + "')";
+				$("#backgroundDiv").addClass("backgroundImg");
+				$(".backgroundImg").css("background-image",imgUrl);											
 			}
 		},
 		setcurrentAns : function(currentPage){
@@ -1100,11 +1098,20 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			}
 		},
 		currentAns:null,
-		setAnswerBehaviour: function(){
-			var answerOptions = $('[name="answerOptions"]');
-			
+		setAnswerBehaviour: function(currentPage){
+			var answerOptions = $('[name="answerOptions"]');			
 			var currentHover;
-			var self = this;
+			var self = this;	
+			var qid = parseInt(currentPage.split('/')[1]);
+			$('#answer' + qid + ' .nextButton').on('click', function(evt){				
+				if(self.currentAns == undefined || self.currentAns == null){
+					self.showError();
+					return false;
+				} else {
+					self.removeError();
+					return true;
+				}
+			});			
 			for(var i=0;i<answerOptions.length; i++){
 				var option = answerOptions.eq(i);				
 				function clickHandler(obj) {    
@@ -1159,16 +1166,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 					router.navigate($('.nextButton').attr("href"), {trigger: true});
 				});
 			});
-			var self = this;
-			$('.nextButton').click(function(){				
-				if(self.currentAns == undefined || self.currentAns == null){
-					self.showError();
-					return false;
-				} else {
-					self.removeError();
-					return true;
-				}
-			});		
+		
 		},
 		showError : function(){
 			this.errorDiv.show();			
@@ -1233,7 +1231,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 
 
 	Backbone.history.start();
-	var preload = ["imgc/001.jpg", "imgc/002.jpg", "imgc/003.jpg", "imgc/3_act.jpg", "imgc/005.jpg", "imgc/5_was_crop.jpg", "imgc/food_habits.jpg","imgc/final_bg.jpg"];
+	var preload = ["imgc/001.jpg", "imgc/002.jpg", "imgc/003.jpg", "imgc/ddlj.jpg", "imgc/005.jpg", "imgc/deewar.jpg", "imgc/5_was_crop.jpg", "imgc/food_habits.jpg","imgc/final_bg.jpg"];
 	var images = [];
 	for (i = 0; i < preload.length; i++) {
 	    images[i] = new Image();
