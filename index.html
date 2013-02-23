@@ -586,7 +586,7 @@
 						Mobile:
 					</span>
 					<span style="margin-left:1%">
-						<input style="height:32px;width:60%;" type="text" id="mobileNumber" >					
+						<input style="height:32px;width:45%;" type="text" id="mobileNumber" >					
 					</span>
 					<input id="submitButton" type="button" value="Submit">					
 				</div>
@@ -720,21 +720,21 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		},
 		{
 			id:2,
-			question: "What is your level of physical activity?											",
+			question: 'How physically demanding is your work (occupation)',											
 			answerType: "multiSelect",
 			options: [{
-				text:"No exercise AND sedentary work",
-				score:30
-			},{
-				text:"Exercise regularly OR strenous work",
+				text:"Mild",
 				score:20
 			},{
-				text:"Exercise regularly AND strenous work",
-				score:0
+				text:"Moderate",
+				score:10
+			},{
+				text:"Strenous/Vigorous",
+				score:10
 			}
 			],
 			genderType: "b",
-			img: "imgc/3_act.jpg",
+			img: "imgc/deewar.jpg",
 			count:3
 		},
 		{
@@ -754,7 +754,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			],
 			genderType: "b",
 			img: "imgc/005.jpg",
-			count:4
+			count:5
 		},
 		{
 			id:4,
@@ -773,7 +773,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			],
 			genderType: "f",
 			img: "imgc/5_was_crop.jpg",
-			count:5
+			count:6
 		},
 		{
 			id:4,
@@ -793,7 +793,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			],
 			genderType: "m",
 			img: "imgc/5_was_crop.jpg",
-			count:5
+			count:6
 		},
 		{
 			id:5,
@@ -810,7 +810,27 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			img: "imgc/002.jpg",
 			genderType:'b',
 			count:1
+		},
+		{
+			id:6,
+			question: "How often do you exercise?",											
+			answerType: "multiSelect",
+			options: [{
+				text:"Rarely",
+				score:20
+			},{
+				text:"3 or more times a week",
+				score:10
+			},{
+				text:"Almost daily",
+				score:10
+			}
+			],
+			genderType: "b",
+			img: "imgc/3_act.jpg",
+			count:4
 		}
+
 	];
 
 	var facts = [
@@ -854,7 +874,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 	];
 
 	var flowOfPages = {
-		flow: ["5q","1q","2q","3q","4q"],
+		flow: ["5q","1q","6q","2q","3q","4q"],
 		noOfq:5,
 		pointer : 0,
 		questionCount:1,
@@ -1002,6 +1022,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 		},				
 		showNextFlowObject: function(objId){	
 			this.calculateScore();			
+			this.currentAns = null;
 			var obj = this.getNextFlowObject(objId);
 			if(obj == null){				
 				this.showScorePage();
@@ -1016,7 +1037,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 					}				
 					//headerTemplate = _.template($("#header_question_template").html(), {question: obj.question, number: obj.count, total:flowOfPages.flow.length})
 					var backRoute = obj.count == 1 ? "#home" : "#questions/" + (obj.count -1); 
-					var nextRoute = obj.count == 5 ? "#score" : "#questions/" + (obj.count +1);
+					var nextRoute = obj.count == 6 ? "#score" : "#questions/" + (obj.count +1);
 					//template = _.template($("#question_page_template").html(), {img: obj.img, answer:answerHtml, backRoute:backRoute, nextRoute: nextRoute});							
 					var fullPage = {};
 					fullPage.questionObj = obj;
@@ -1044,7 +1065,22 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				this.errorDiv = $("#errorDiv");
 				this.errorDiv.hide();
 				this.currentPage = Backbone.history.fragment;						
+				this.setcurrentAns(this.currentPage);							
 			}
+		},
+		setcurrentAns : function(currentPage){
+			var qid = parseInt(currentPage.split('/')[1]);
+			if(this.qidExists(qid)){
+				var selectedAnswer = this.getSelectedAnswer(qid);
+				var answerOptions = $('[name="answerOptions"]');
+				for(var i=0;i<answerOptions.length; i++){
+					var option = answerOptions.eq(i);
+					if(option.html() == selectedAnswer.answer){
+						option.addClass("checked");
+						this.currentAns = option;
+					}
+				}
+			}	
 		},
 		qidExists : function(qid){
 			for(var id in selectedAnswers){
@@ -1063,9 +1099,10 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				}
 			}
 		},
+		currentAns:null,
 		setAnswerBehaviour: function(){
 			var answerOptions = $('[name="answerOptions"]');
-			var currentAns;
+			
 			var currentHover;
 			var self = this;
 			for(var i=0;i<answerOptions.length; i++){
@@ -1073,12 +1110,12 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				function clickHandler(obj) {    
         			obj.click (
             			function() {
-            				if(currentAns !== undefined){
-            			 		currentAns.removeClass('checked');
+            				if(self.currentAns !== undefined && self.currentAns != null){
+            			 		self.currentAns.removeClass('checked');
             			 	} 
             			 	obj.removeClass('hovered');	 	
 							obj.addClass('checked');
-							currentAns = obj;
+							self.currentAns = obj;
 							var qid = $('.question').attr("count");
 							var selectedAnswer;
 							if(!self.qidExists(qid)){
@@ -1088,8 +1125,8 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 							} else {
 								selectedAnswer = self.getSelectedAnswer(qid);								
 							}
-							selectedAnswer.answer = currentAns.html();
-							selectedAnswer.scoreHere = self.scoreHere = parseInt(currentAns.attr("value"));
+							selectedAnswer.answer = self.currentAns.html();
+							selectedAnswer.scoreHere = self.scoreHere = parseInt(self.currentAns.attr("value"));
 																					
             			}
         			)}; 
@@ -1124,7 +1161,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			});
 			var self = this;
 			$('.nextButton').click(function(){				
-				if(currentAns == undefined){
+				if(self.currentAns == undefined || self.currentAns == null){
 					self.showError();
 					return false;
 				} else {
