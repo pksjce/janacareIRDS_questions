@@ -1075,7 +1075,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				var answerOptions = $('[name="answerOptions"]');
 				for(var i=0;i<answerOptions.length; i++){
 					var option = answerOptions.eq(i);
-					if(option.html() == selectedAnswer.answer){
+					if(option.html().trim() == selectedAnswer.answer){
 						option.addClass("checked");
 						this.currentAns = option;
 					}
@@ -1105,15 +1105,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			var currentHover;
 			var self = this;	
 			var qid = parseInt(currentPage.split('/')[1]);
-			$('#answer' + qid + ' .nextButton').on('click', function(evt){				
-				if(self.currentAns == undefined || self.currentAns == null){
-					self.showError();
-					return false;
-				} else {
-					self.removeError();
-					return true;
-				}
-			});			
+	
 			for(var i=0;i<answerOptions.length; i++){
 				var option = answerOptions.eq(i);				
 				function clickHandler(obj) {    
@@ -1134,7 +1126,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 							} else {
 								selectedAnswer = self.getSelectedAnswer(qid);								
 							}
-							selectedAnswer.answer = self.currentAns.html();
+							selectedAnswer.answer = self.currentAns.html().trim();
 							selectedAnswer.scoreHere = self.scoreHere = parseInt(self.currentAns.attr("value"));
 																					
             			}
@@ -1165,7 +1157,13 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 			});
 			$(function(){
 				$('.nextButtonHolder').click(function(){
-					router.navigate($('.nextButton').attr("href"), {trigger: true});
+					if(self.currentAns == undefined || self.currentAns == null){
+						self.showError();
+						return false;
+					} else {
+						self.removeError();
+						router.navigate($('.nextButton').attr("href"), {trigger: true});						
+					}					
 				});
 			});
 		
