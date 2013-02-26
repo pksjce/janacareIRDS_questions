@@ -1073,7 +1073,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				var answerOptions = $('[name="answerOptions"]');
 				for(var i=0;i<answerOptions.length; i++){
 					var option = answerOptions.eq(i);
-					if(option.html() == selectedAnswer.answer){
+					if(option.html().trim() == selectedAnswer.answer){
 						option.addClass("checked");
 						this.currentAns = option;
 					}
@@ -1124,7 +1124,7 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 							} else {
 								selectedAnswer = self.getSelectedAnswer(qid);								
 							}
-							selectedAnswer.answer = self.currentAns.html();
+							selectedAnswer.answer = self.currentAns.html().trim();
 							selectedAnswer.scoreHere = self.scoreHere = parseInt(self.currentAns.attr("value"));
 																					
             			}
