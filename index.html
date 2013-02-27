@@ -191,7 +191,10 @@
 			.downloadText{
 				font: 10pt arial;
 				text-align: justify;
-				opacity: 0.99;				
+				opacity: 0.99;
+				margin-left:10%;
+				margin-right:5%;	
+				float:left;			
 			}
 			.phBox{				
 				opacity:0.99;
@@ -353,9 +356,21 @@
 				background-color: white;
 				opacity:0.8;
 				margin-left:60px;
-				width:200px;
+				width:300px;
+				font:9pt arial;
+				border:2px solid white;
+				padding:2px;
+				text-align: justify;
+			}
+			.disclaimer{
+				background-color: white;
+				opacity:0.8;
+				margin-left:60px;
+				width:300px;
 				font:11pt arial;
 				border:2px solid white;
+				position:absolute;
+				margin-bottom:350px;
 			}
 			</style>	
 			<script type="text/javascript">
@@ -404,7 +419,13 @@
 			Learn More..			
 		</div>		
 		<div class="moreInfo">
-			We ll show a lot of info and stuff here
+			Sugarscore is based on the Indian Diabetes Risk Score developed by Dr.V. Mohan </br>
+			and colleagues:Mohan V, Deepa R, Deepa M, Somannavar S, Datta M. </br>
+			A Simplified Indian Diabetes Risk Score for Screening for Undiagnosed Diabetic Subjects.
+			JAPI September 2005; 53 759-63 </br>
+			Mohan V, Sandeep S, Deepa M, Gokulakrishnan K, Datta M, Deepa R. </br>
+			A diabetes risk score helps identify metabolic syndrome and </br>
+			cardiovascular risk in Indians- the Chennai Urban Rural Epidemiology Study [CURES-38]. Diabetes Obesity Metabolism. 2007; 9:337-343
 		</div>
 	</div>
 	<img src="imgc/enter_off.png" class="enterImage">	
@@ -514,7 +535,7 @@
 			Your sugarscore is...
 		</div>
 				
-		<% if (score >80) {%>
+		<% if (score >60) {%>
 			<div class="score">
 				<%=score%>
 			</div>
@@ -526,8 +547,7 @@
 				RED ALERT!
 			</div>
 		
-
-		<% } else if(score <=80 && score >60){%>
+		<% } else if(score <=50 && score >40){%>
 			<div class="score">
 				<%=score%>
 			</div>					
@@ -536,10 +556,22 @@
 			</div>				
 			<div class="filler"></div>
 			<div class="scoreStatus">
-				CAN BE BETTER
+				Seek Help
 			</div>
 
-		<% } else if(score <= 60 && score >40){%>
+		<% } else if(score <=40 && score >30){%>
+			<div class="score">
+				<%=score%>
+			</div>					
+			<div class="scoreAction">
+				You might be at risk for diabetes. You should focus on reducing some weight and becoming more physically active.
+			</div>				
+			<div class="filler"></div>
+			<div class="scoreStatus">
+				Need to improve
+			</div>
+
+		<% } else if(score <= 30 && score >20){%>
 			<div class="score">
 				<%=score%>
 			</div>					
@@ -548,10 +580,10 @@
 			</div>	
 			<div class="filler"></div>
 			<div class="scoreStatus">
-				HMMMM....ALRIGHT
+				Acceptable	
 			</div>
 		
-		<% } else if(score <= 40 && score >20){%>
+		<% } else if(score <= 20 && score >10){%>
 			<div class="score">
 				<%=score%>
 			</div>					
@@ -563,7 +595,7 @@
 				GOOD
 			</div>
 
-		<% } else if(score <=20){%>		
+		<% } else if(score <=10){%>		
 
 			<div class="score">
 				<%=score%>
@@ -609,16 +641,17 @@
 				</div>		
 				<div class="filler">
 				</div>
-				<div class="row-fluid downloadBox">
-					<div class="span5 offset2 downloadText">
+				<div class="downloadBox">
+					<div class="downloadText">
 						Or download <b>food:habits</b> with</br>
 						the Google Play<sup>TM</sup> Store app
 					</div>					
-					<div class="span5">					
+					<div class="playButton">					
 							<img src="imgc/google_play.png" alt = "Download food:habits" onclick="javascript:window.open('https://play.google.com/store/apps/details?id=com.janacare.foodtrack', '_blank')" style="cursor:pointer;min-height:45px">
 					</div>
 				</div>
-				<div style="color:white;font:9pt arial;text-align:justify;padding:10px">
+				<div class="learnMore">Disclaimer</div>
+				<div class="disclaimer">
 				The sugarscore has been designed to assess the risk of type2 diabetes on the basis of the responses provided by you to the six questions. The results of sugarscore will not take in to account any other associated illness or health condition.The results should not be construed as medical advice or a substitute for medical advice. Please contact your doctor for detailed diagnosis.
 				</div>
 			</div>
@@ -984,6 +1017,13 @@
 				$("#mobileNumber").val("");
 			});			
 			this.addHrefLinks(score);
+			$(".disclaimer").hide();	
+			$(".learnMore").mouseover(function(){
+				$(".disclaimer").show();
+			})
+			.mouseout(function(){
+				$(".disclaimer").hide();
+			})
         	this.autoResizeDiv();
 			var answerBox = $(".infoOpaque");		
 			var height = window.innerHeight - parseInt($(".question").innerHeight());
@@ -992,7 +1032,7 @@
 			userJson.selectedAnswers = selectedAnswers;
 			Parse.User.save(userJson);
 			_gaq.push(['_trackEvent', 'SugarScore', 'Completed', JSON.stringify(userJson)]);
-		},
+		},		
 		addHrefLinks: function(score){
 			var fblink = "https://www.facebook.com/dialog/feed?app_id=448182651920418&link=https://developers.facebook.com/docs/reference/dialogs/&picture=http://fbrell.com/f8.jpg&name=";
 			var fbAppName = "SugarScore&caption=SugarScore";
