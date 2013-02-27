@@ -630,10 +630,10 @@
 		<div class="socialHeader">
 			Share
 		</div>
-		<a href="https://www.facebook.com/dialog/feed?app_id=448182651920418&link=https://developers.facebook.com/docs/reference/dialogs/&picture=http://fbrell.com/f8.jpg&name=Facebook%20Dialogs&caption=Food%20Habits&description=My%20score%20is%200%20I%20have%20no%20diabetes%20risk.&redirect_uri=http://localhost:8082/questionairre/">
+		<a href="" id="fbButton">
 			<img class="socialButton" src="imgc/fb.png">
 		</a>
-		<a href="#" ><img class="socialButton" src="imgc/twitter.png"></a>	
+		<a href="" id="twitterButton" ><img class="socialButton" src="imgc/twitter.png"></a>	
 	</div>	
 		
 </script>
@@ -744,7 +744,7 @@
 			answerType: "multiSelect",
 			options: [{
 				text:"Mild",
-				score:20
+				score:15
 			},{
 				text:"Moderate",
 				score:10
@@ -837,7 +837,7 @@
 			answerType: "multiSelect",
 			options: [{
 				text:"Rarely",
-				score:10
+				score:15
 			},{
 				text:"About 3 times a week",
 				score:10
@@ -983,6 +983,7 @@
 				$(".numberSent").html("Submitted! Thank you.")
 				$("#mobileNumber").val("");
 			});			
+			this.addHrefLinks(score);
         	this.autoResizeDiv();
 			var answerBox = $(".infoOpaque");		
 			var height = window.innerHeight - parseInt($(".question").innerHeight());
@@ -991,6 +992,18 @@
 			userJson.selectedAnswers = selectedAnswers;
 			Parse.User.save(userJson);
 			_gaq.push(['_trackEvent', 'SugarScore', 'Completed', JSON.stringify(userJson)]);
+		},
+		addHrefLinks: function(score){
+			var fblink = "https://www.facebook.com/dialog/feed?app_id=448182651920418&link=https://developers.facebook.com/docs/reference/dialogs/&picture=http://fbrell.com/f8.jpg&name=";
+			var fbAppName = "SugarScore&caption=SugarScore";
+			var desc = "&description=My SugarScore is " + score + ".Get yours at http://sugarscore.in";
+			var redirect_uri = "&redirect_uri=http://sugarscore.in";
+			var fbHref = fblink + encodeURIComponent(fbAppName + desc + redirect_uri);			
+			$("#fbButton").attr("href", fbHref);
+			var twtTitle = "My SugarScore is " + score + ".Get yours at";
+			var twtUrl = "http://sugarscore.in";
+			var twtLink = 'http://twitter.com/home?status='+ encodeURIComponent(twtTitle + ' ' + twtUrl);
+			$("#twitterButton").attr("href", twtLink);
 		},
 		autoResizeDiv : function(){
             document.getElementById('habits').style.height = window.innerHeight +'px';
