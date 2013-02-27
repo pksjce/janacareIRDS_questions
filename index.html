@@ -2,8 +2,9 @@
 	<head>	
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">	
 		<style type="text/css">
-			body{
+			html, body{
 				min-width:700px;
+				min-height: 100%;
 				background-color: #B5C59B;
 			}
 			.backgroundImg { 
@@ -155,11 +156,20 @@
 				text-align: left;				
 			}
 			.socialTab{
-				position:fixed;
-				bottom:130;
-				left:0;
-				width:32px;
-				display: none;
+				position:absolute;					
+				z-index:5;				
+				bottom:45;
+				left:0;		
+				width:50px;
+				height:130px;		
+			}
+			.socialHeader{
+				height:20px;
+				background-color: white;
+				color:black;
+				opacity:0.99;
+				text-align: center;
+				font: 11pt arial;
 			}
 			.socialButton{
 				width:30px;
@@ -280,13 +290,22 @@
 				height:100%;
 				width:100%;
 			}
-			.infoOpaque{
+			.socialOpaque{
 				position:absolute;
 				background-color: white;
 				opacity: 0.7;
-				z-index:2;
-				height:100%;
-				width:100%;	
+				z-index:2;				
+				bottom:45;
+				left:0;		
+				width:50px;
+				height:130px;						
+			}
+			.socialWrapper{
+				position:absolute;
+				bottom:45;
+				left:0;		
+				width:50px;
+				height:130px;			
 			}
 			#container{
 				position:absolute;
@@ -558,7 +577,7 @@
 				EXCELLENT. 
 			</div>	
 			
-		<% } %>
+		<% } %>								
 		<div class="logo">
 			<img src="imgc/bot_logo.png">
 		</div>
@@ -576,7 +595,7 @@
 					the <b>food:habits</b> android app <br>
 					to help you eat healthier.
 				</div>
-				<img src="imgc/food_habits_mobile.png" style="height:350px;width:215px;margin-left:25%">
+				<img src="imgc/food_habits_mobile.png" style="height:40%;width:50%;margin-left:25%">
 				<div class="phBox">
 					<span style="font:12pt arial;text-align:left;width:5%;line-height: 32px; margin-left:10%">
 						Mobile:
@@ -603,8 +622,20 @@
 				The sugarscore has been designed to assess the risk of type2 diabetes on the basis of the responses provided by you to the six questions. The results of sugarscore will not take in to account any other associated illness or health condition.The results should not be construed as medical advice or a substitute for medical advice. Please contact your doctor for detailed diagnosis.
 				</div>
 			</div>
-		</div>
+		</div>			
 	</div>		
+	<div class="socialOpaque">
+	</div>
+	<div class="socialTab">
+		<div class="socialHeader">
+			Share
+		</div>
+		<a href="https://www.facebook.com/dialog/feed?app_id=448182651920418&link=https://developers.facebook.com/docs/reference/dialogs/&picture=http://fbrell.com/f8.jpg&name=Facebook%20Dialogs&caption=Food%20Habits&description=My%20score%20is%200%20I%20have%20no%20diabetes%20risk.&redirect_uri=http://localhost:8082/questionairre/">
+			<img class="socialButton" src="imgc/fb.png">
+		</a>
+		<a href="#" ><img class="socialButton" src="imgc/twitter.png"></a>	
+	</div>	
+		
 </script>
 <script type="text/template" id="score_template">
 	<div class="row-fluid absHeader">
@@ -684,17 +715,7 @@
 		</div>	
 				
 	</div>	
-	<div class="socialTab">
-		<a href="https://www.facebook.com/dialog/feed?
-app_id=448182651920418&
-link=https://developers.facebook.com/docs/reference/dialogs/&
-picture=http://fbrell.com/f8.jpg&
-name=Facebook%20Dialogs&
-caption=Food%20Habits&
-description=My%20score%20is%200%20I%20have%20no%20diabetes%20risk.&
-redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src="imgc/fb.png"></a>
-	<a href="#" ><img class="socialButton" src="imgc/twitter.png"></a>	
-	</div>	
+
 </script>
 <script type="text/javascript">	
 	var questions = [
@@ -961,15 +982,19 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				self.sendToParse(number, positiveScore);
 				$(".numberSent").html("Submitted! Thank you.")
 				$("#mobileNumber").val("");
-			});
+			});			
+        	this.autoResizeDiv();
 			var answerBox = $(".infoOpaque");		
-			var height = parseInt($(window).innerHeight());
+			var height = window.innerHeight - parseInt($(".question").innerHeight());
 			answerBox.height(height + "px");
 			userJson = {};
 			userJson.selectedAnswers = selectedAnswers;
 			Parse.User.save(userJson);
 			_gaq.push(['_trackEvent', 'SugarScore', 'Completed', JSON.stringify(userJson)]);
 		},
+		autoResizeDiv : function(){
+            document.getElementById('habits').style.height = window.innerHeight +'px';
+        },
 		sendToParse: function(number, score){
 			Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
 		    var instance = null;
@@ -1048,22 +1073,24 @@ redirect_uri=http://localhost:8080/questionairre/"><img class="socialButton" src
 				}		
 				else if(obj.factText){
 					template = _.template($("#fact_page_template").html() , {img: obj.img, factText: obj.factText});
-				}
-				this.$el.empty();
+				}				
+				this.$el.empty();				
 				this.$el.append(template);
 				if(obj.question){
 					var answerBox = $(".answerOpaque");		
 					var height = parseInt(answerBox.next().height());
 					answerBox.height(height + "px");
-				}				
+				}								
 				this.errorDiv = $("#errorDiv");
 				this.errorDiv.hide();
 				this.currentPage = Backbone.history.fragment;						
 				this.setcurrentAns(this.currentPage);	
 				this.setAnswerBehaviour(this.currentPage);
+				$("#backgroundDiv").hide();
 				imgUrl = "url('" + obj.img + "')";
 				$("#backgroundDiv").addClass("backgroundImg");
-				$(".backgroundImg").css("background-image",imgUrl);											
+				$(".backgroundImg").css("background-image",imgUrl);		
+				$("#backgroundDiv").fadeIn(1000);
 			}
 		},
 		setcurrentAns : function(currentPage){
