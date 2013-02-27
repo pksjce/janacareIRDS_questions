@@ -1047,7 +1047,7 @@
 			var fbAppName = "SugarScore&caption=SugarScore";
 			var desc = "&description=My SugarScore is " + score + ".Get yours at http://sugarscore.in";
 			var redirect_uri = "&redirect_uri=http://sugarscore.in";
-			var fbHref = fblink + encodeURIComponent(fbAppName + desc + redirect_uri);			
+			var fbHref = fblink + fbAppName + desc + redirect_uri;			
 			$("#fbButton").attr("href", fbHref);
 			var twtTitle = "My SugarScore is " + score + ".Get yours at";
 			var twtUrl = "http://sugarscore.in";
