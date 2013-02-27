@@ -1011,6 +1011,7 @@
 			var self = this;
 			$(".backgroundImg").css("background-image","url('')");	
 			//$(".imgForBc").attr("src", "imgc/final_bg.jpg");
+			Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
 			$("#submitButton").click(function(){
 				var number = parseInt($("#mobileNumber").val());
 				/*var pattern = /^(7|8|9)[\d]{9,9}$/;
@@ -1035,8 +1036,10 @@
 			var height = window.innerHeight - parseInt($(".question").innerHeight());
 			answerBox.height(height + "px");
 			userJson = {};
-			userJson.selectedAnswers = selectedAnswers;
-			Parse.User.save(userJson);
+			userJson["selectedAnswers"] = selectedAnswers;
+      var ParticipantObject = Parse.Object.extend("Participant");
+      var participant = new ParticipantObject();
+      participant.save({user : userJson}, {success:function(object){console.log('Saved user ' + object)}});
 			_gaq.push(['_trackEvent', 'SugarScore', 'Completed', JSON.stringify(userJson)]);
 		},		
 		addHrefLinks: function(score){
@@ -1055,7 +1058,6 @@
             document.getElementById('habits').style.height = window.innerHeight +'px';
         },
 		sendToParse: function(number, score){
-			Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
 		    var instance = null;
 		    var PhoneObject = Parse.Object.extend("Phone");
 		    var phone = new PhoneObject();
