@@ -417,19 +417,26 @@
 		<div class="filler">
 		</div>			
 		<div class="headerInfo">
-			Developed in association with Dr. V. Mohan</br>
-			at Dr. Mohan&#39;s Diabetes Speciality Center, Chennai
-		</div>
+      Sugarscore is based on the Indian Diabetes Risk Score developed by <br/>
+      Dr. V. Mohan and colleagues at the Madras Diabetes Research Foundation
+    </div>
 		<div class="learnMore">
-			Learn More..			
+			Learn More ...			
 		</div>		
-		<div class="moreInfo">
-			Sugarscore is based on the Indian Diabetes Risk Score developed by Dr.V. Mohan </br>
-			and colleagues:Mohan V, Deepa R, Deepa M, Somannavar S, Datta M. </br>
-			A Simplified Indian Diabetes Risk Score for Screening for Undiagnosed Diabetic Subjects.
-			JAPI September 2005; 53 759-63 </br>
-			Mohan V, Sandeep S, Deepa M, Gokulakrishnan K, Datta M, Deepa R. </br>
-			A diabetes risk score helps identify metabolic syndrome and cardiovascular risk in Indians- the Chennai Urban Rural Epidemiology Study [CURES-38]. Diabetes Obesity Metabolism. 2007; 9:337-343
+    <div class="moreInfo">
+
+    <p>
+    Mohan V, Deepa R, Deepa M, Somannavar S, Datta M. A Simplified Indian
+    Diabetes Risk Score for Screening for Undiagnosed Diabetic Subjects. <br/>
+    JAPI September 2005; 53 759-63
+    </p>
+    <p>
+    Mohan V, Sandeep S, Deepa M, Gokulakrishnan K, Datta M, Deepa R. A
+    diabetes risk score helps identify metabolic syndrome and
+    cardiovascular risk in Indians <br/>
+    The Chennai Urban Rural Epidemiology Study [CURES-38]. Diabetes Obesity Metabolism. 2007; 9:337-343
+    </p>
+
 		</div>
 	</div>
 	<img src="imgc/enter_off.png" class="enterImage">	
@@ -544,11 +551,11 @@
 				<%=score%>
 			</div>
 			<div class="scoreAction">
-				 You are at high risk for diabetes. You should definitely get your blood sugar tested at a nearby lab or hospital.
-			</div>					
+        You are at high risk for diabetes. Get you blood sugar tested immediately!
+      </div>					
 			<div class="filler"></div>
 			<div class="scoreStatus">
-				RED ALERT!
+				Red Alert!
 			</div>
 		
 		<% } else if(score <=50 && score >40){%>
@@ -556,7 +563,7 @@
 				<%=score%>
 			</div>					
 			<div class="scoreAction">
-				You might be at risk for diabetes. You should focus on reducing some weight and becoming more physically active.
+				You are at medium risk for diabetes.
 			</div>				
 			<div class="filler"></div>
 			<div class="scoreStatus">
@@ -568,11 +575,11 @@
 				<%=score%>
 			</div>					
 			<div class="scoreAction">
-				You might be at risk for diabetes. You should focus on reducing some weight and becoming more physically active.
-			</div>				
+        You are at medium risk for diabetes.
+      </div>				
 			<div class="filler"></div>
 			<div class="scoreStatus">
-				Need to improve
+				Need To Improve
 			</div>
 
 		<% } else if(score <= 30 && score >20){%>
@@ -580,11 +587,11 @@
 				<%=score%>
 			</div>					
 			<div class="scoreAction">
-				You can definitely improve your habits score by reducing some weight and becoming more physically active
+        You are at low risk for diabetes but do exhibit some risk factors.
 			</div>	
 			<div class="filler"></div>
 			<div class="scoreStatus">
-				Acceptable	
+				Alright
 			</div>
 		
 		<% } else if(score <= 20 && score >10){%>
@@ -592,11 +599,11 @@
 				<%=score%>
 			</div>					
 			<div class="scoreAction">
-				Your risk for diabetes is low.
+		    You are at low risk for diabetes.
 			</div>								
 			<div class="filler"></div>
 			<div class="scoreStatus">
-				GOOD
+				Good
 			</div>
 
 		<% } else if(score <=10){%>		
@@ -606,11 +613,11 @@
 			</div>				
 						
 			<div class="scoreAction">
-				Your are not only at low risk for diabetes but also a role model for others
+				You are at low risk for diabetes.
 			</div>
 			<div class="filler"></div>
 			<div class="scoreStatus">
-				EXCELLENT. 
+				Excellent
 			</div>	
 			
 		<% } %>								
