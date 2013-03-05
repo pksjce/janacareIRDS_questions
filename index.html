@@ -303,6 +303,37 @@
 				width:50px;
 				height:130px;						
 			}
+			.infoGraphOpaque{
+				position:absolute;
+				background-color: black;
+				opacity:0.7;
+				z-index:10;
+				top:0;
+				left: 0;
+				height:100%;
+				width:100%;
+			}
+			.infoGraphPage, .buttonRow{
+				height:40%;
+				width: 100%;	
+				position:absolute;
+				z-index:100;
+				top:60%;
+				left:0;
+			}
+			.infoGraphText{
+				font:bold arial;
+				color:white;
+				text-align: justified;
+			}
+			.infoGraphHeaderText{
+				font:bold 50pt arial;
+				line-height: 20px;
+			}
+			.infoGraphBodyText{
+				font:bold 26pt arial;
+				margin-top:30px;
+			}
 			.socialWrapper{
 				position:absolute;
 				bottom:45;
@@ -376,6 +407,9 @@
 				right:40%;
 				padding:4px;
 				text-align: justify;
+			}
+			.backArrow, .nextArrow{
+				cursor:pointer;
 			}
 			</style>	
 			<script type="text/javascript">
@@ -462,7 +496,7 @@
 					<%=fullPageObj.answerHtml%>
 				</div>
 				<div class="filler"></div>
-				<div class="row-fluid" id="answer<%=fullPageObj.questionObj.count%>">
+				<div class="row-fluid hide" id="answer<%=fullPageObj.questionObj.count%>">
 					<div class="span2" >
 						<div class="backButtonHolder" >
 							<a href="<%=fullPageObj.backRoute%>" class="backButton">back</a>
@@ -478,6 +512,34 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="buttonRow row-fluid">
+		<div class="backArrowButton span1">
+			<img src="imgc/arrow_back_off.png" style="float:left">
+		</div>
+		<div class="nextArrowButton span1 offset10">
+			<img src="imgc/arrow_next_off.png" style="float:right">
+		</div>	
+	</div>
+	<div class="infoGraph hide">
+		<div class="infoGraphOpaque">
+		</div>
+		<div class="infoGraphPage row-fluid">
+			<div class="backArrow span1">
+				<img src="imgc/arrow_back_on.png" style="float:left">
+			</div>
+			<div class="infoGraphText span8">
+				<div class="infoGraphHeaderText">
+					<%=fullPageObj.questionObj.infoText.header%>
+				</div>
+				<div class="infoGraphBodyText">
+					<%=fullPageObj.questionObj.infoText.body%>
+				</div>
+			</div>
+			<div class="nextArrow span1 offset2">
+				<img src="imgc/arrow_next_on.png" style="float:right">
+			</div>			
 		</div>
 	</div>
 </script>
@@ -782,6 +844,10 @@
 			],			
 			genderType: "b",
 			img: "imgc/003.jpg",
+			infoText:{
+				header:"Age",
+				body:"Indians tend to develop Type 2 Diabetes almost a decade before other ethnicities"
+			},
 			count:2
 		},
 		{
@@ -801,6 +867,10 @@
 			],
 			genderType: "b",
 			img: "imgc/deewar.jpg",
+			infoText:{
+				header:"Occupation",
+				body:"Sitting is the smoking of our generation.After 1 hour of sitting, the production of enzymes that burn fat declines by as much as 90%"
+			},
 			count:3
 		},
 		{
@@ -820,6 +890,10 @@
 			],
 			genderType: "b",
 			img: "imgc/005.jpg",
+			infoText:{
+				header:"Family History",
+				body:"36% higher chance when one of the parents has diabetes. 62% higher chance when both parents are diabetic."
+			},
 			count:5
 		},
 		{
@@ -839,6 +913,10 @@
 			],
 			genderType: "f",
 			img: "imgc/5_was_crop.jpg",
+			infoText:{
+				header:"Waist Size",
+				body:"Abdominal obesity among Indians is a significant risk factor for diabetes."
+			},
 			count:6
 		},
 		{
@@ -859,6 +937,10 @@
 			],
 			genderType: "m",
 			img: "imgc/5_was_crop.jpg",
+			infoText:{
+				header:"Waist Size",
+				body:"Abdominal obesity among Indians is a significant risk factor for diabetes."
+			},
 			count:6
 		},
 		{
@@ -875,6 +957,10 @@
 			],
 			img: "imgc/002.jpg",
 			genderType:'b',
+			infoText:{
+				header:"Gender",
+				body:"Both Men and Women are equally susceptible to develop Type 2 Diabetes."
+			},
 			count:1
 		},
 		{
@@ -894,6 +980,10 @@
 			],
 			genderType: "b",
 			img: "imgc/ddlj.jpg",
+			infoText:{
+				header:"Exercise",
+				body:"150 mins of brisk Physical Activity per week can reduce Type 2 diabetes risk significantly"
+			},
 			count:4
 		}
 
@@ -1221,7 +1311,7 @@
 							}
 							selectedAnswer.answer = self.currentAns.html().trim();
 							selectedAnswer.scoreHere = self.scoreHere = parseInt(self.currentAns.attr("value"));
-																					
+							$(".infoGraph").fadeIn();																				
             			}
         			)}; 
         		function mouseoverHandler(obj){
@@ -1244,12 +1334,28 @@
         		mouseoutHandler(option);
 			}
 			$(function(){
-				$('.backButtonHolder').click(function(){
+				$('.backArrow').mouseover(function(){
+					$(".backArrow img").attr("src","imgc/arrow_back_hover.png");
+				})
+				.mouseout(function(){
+					$(".backArrow img").attr("src","imgc/arrow_back_on.png");	
+				});
+			});
+			$(function(){
+				$('.nextArrow').mouseover(function(){
+					$(".nextArrow img").attr("src","imgc/arrow_next_hover.png");
+				})
+				.mouseout(function(){
+					$(".nextArrow img").attr("src","imgc/arrow_next_on.png");	
+				});
+			});
+			$(function(){
+				$('.backArrow').click(function(){
 					router.navigate($('.backButton').attr("href"), {trigger: true});
 				});
 			});
 			$(function(){
-				$('.nextButtonHolder').click(function(){
+				$('.nextArrow').click(function(){
 					if(self.currentAns == undefined || self.currentAns == null){
 						self.showError();
 						return false;
