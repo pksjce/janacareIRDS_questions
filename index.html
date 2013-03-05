@@ -148,7 +148,8 @@
 			.scoreStatus{
 				font: bold 16pt arial;
 				color:white;
-				text-align: left;				
+				text-align: left;	
+				display:none;			
 			}
 			.scoreAction{
 				font: bold 18pt arial;
@@ -1373,7 +1374,12 @@
 		removeError:function(){
 			this.errorDiv.hide();
 		},
+		show404: function(){
+			this.$el.empty();
+			$("#backgroundDiv").removeClass("backgroundImg");
+			this.$el.append("<div style='font:60pt bold arial'>This is a 404 page</div>");
 
+		},
 		getNextFlowObject: function(givenId){
 			if(this.currentObj == null){
 				this.currentObj = flowOfPages.getNext();
@@ -1384,7 +1390,7 @@
 				if(nextFlowObject["type"] == 'q'){
 					for (id in questions){
 						var question = questions[id];
-						var compareGender = gender == undefined ? "m" : gender
+						var compareGender = gender == 'b' ? "m" : gender;
 						if(question.count == objId && (question.genderType == compareGender || question.genderType == 'b')){							
 							return question;
 						} 
@@ -1407,7 +1413,8 @@
 			'home':'home',			
 			'questions/:id': 'questions',
 			'facts/:id': 'facts',
-			"score": 'score'
+			"score": 'score',
+			'*whatever':'notFound'
 		}
 	});
 	var app = new ApplicationView();
@@ -1427,6 +1434,10 @@
 	router.on('route:home', function(){
 		app.render();
 	});	
+	router.on('route:notFound', function(){
+		console.log("I catch all!");
+		app.show404();
+	});
 
 
 	Backbone.history.start();
