@@ -1036,6 +1036,11 @@
 		pointer : 0,
 		questionCount:1,
 		factCount:1,
+		reset: function(){
+			this.pointer = 0;
+			this.questionCount = 1;
+			this.factCount = 1;
+		},
 		getNext : function(){
 			var next = {};
 			if(this.pointer < this.flow.length){
@@ -1062,18 +1067,21 @@
 		el : "#habits",
 		flowObject: {},
 		score:0,
-		events: {
-			
-		},
+		currentPage: "",
+		currentAns:null,
 		initialize: function(){			
 			this.setFlowHash();		
-			this.createHiddenForm();	
+			this.initVars();	
 		},
-		currentPage: "",
-		$form: null,
-		createHiddenForm: function(){
-			this.$form = $("<form name='hiddenStuff' action='https://script.google.com/macros/s/AKfycbwgYCCRM3N8Na8lFe6OwSb8lhWmVz-hA6-3pWkkgc97AsV_tQ/exec' method='post'></form>")			
+		initVars: function(){
+			this.score = 0;
+			this.currentPage = "";
+			this.currentAns = null;
+			selectedAnswers = [];
+			gender = 'b';
+			flowOfPages.reset();
 		},
+		
 		setFlowHash: function(){
 			this.flowObject.start = false;
 			this.flowObject.questionList = [];			
@@ -1134,9 +1142,9 @@
 			answerBox.height(height + "px");
 			userJson = {};
 			userJson["selectedAnswers"] = selectedAnswers;
-      var ParticipantObject = Parse.Object.extend("Participant");
-      var participant = new ParticipantObject();
-      participant.save({user : userJson}, {success:function(object){console.log('Saved user ' + object)}});
+      		var ParticipantObject = Parse.Object.extend("Participant");
+      		var participant = new ParticipantObject();
+      		participant.save({user : userJson}, {success:function(object){console.log('Saved user ' + object)}});
 			_gaq.push(['_trackEvent', 'SugarScore', 'Completed', JSON.stringify(userJson)]);
 		},		
 		addHrefLinks: function(score){
@@ -1164,10 +1172,6 @@
 		        }
 		      });
 		},
-		showHeader: function(){
-
-		},
-
 		showHomePage: function(){
 			this.currentPage = "home";
 			var template= _.template($("#home_page_template").html(),{question:"Are you at risk for Diabetes?",answer:"Take this one minute test to find out",startRoute:"#questions/1"});
@@ -1281,8 +1285,9 @@
 					return selectedAnswer;
 				}
 			}
+			return null;
 		},
-		currentAns:null,
+		
 		setAnswerBehaviour: function(currentPage){
 			var answerOptions = $('[name="answerOptions"]');			
 			var currentHover;
@@ -1404,6 +1409,29 @@
 				}
 			}
 			return null; 
+		},
+		isValidPageChange: function(questionId){
+			var qId = parseInt(questionId);
+			if(qId && qId > 6){
+				return false;
+			}
+			this.page = Backbone.history.fragment;
+			if(this.currentPage == "" && this.page != "home"){
+				return false;
+			} 
+			var prevQid =parseInt(this.currentPage.split('/')[1]);
+			var qDiff = qId - prevQid;
+			if(qId !=1 && qDiff != 1 && this.page != "score"){
+				return false;
+			} else if(qDiff == 1){
+				if(this.getSelectedAnswer(prevQid) == null){
+					return false;
+				}
+			}
+			if(prevQid !== 6 && this.page == "score"){
+				return false;
+			}
+			return true;
 		}
 	});
 	var Router = Backbone.Router.extend({
@@ -1419,18 +1447,26 @@
 	var app = new ApplicationView();
 	var router = new Router();
 	router.on('route:score', function(){
-		console.log("this is score");
-		app.showNextFlowObject(100);		
+		if(app.isValidPageChange()){
+			app.showNextFlowObject(100);
+		} else {
+			router.navigate("#home", {trigger:true});
+		}
+
 	});
 	router.on('route:questions', function(questionId){
-		console.log("this is a question");
-		app.showNextFlowObject(questionId);
+		if(app.isValidPageChange(questionId)){
+			app.showNextFlowObject(questionId);
+		} else {						
+			router.navigate("#home", {trigger:true});
+		}
 	});
 	router.on('route:facts', function(){
 		console.log("this is facts");
 	});
 
 	router.on('route:home', function(){
+		app.initVars();
 		app.render();
 	});	
 	router.on('route:notFound', function(){
