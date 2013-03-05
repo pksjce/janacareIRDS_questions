@@ -1103,7 +1103,6 @@
 			}	
 			this.flowObject.start = false;
 			this.$el.empty();			
-			var positiveScore = 100 - this.score; 
 			var template = _.template($("#score_page_template").html(),{score:score, question:"Did you know?"});
 			this.$el.append(template);
 			var self = this;
@@ -1117,7 +1116,7 @@
 					alert("Please enter a valid mobile number");
 					return false;
 				}*/
-				self.sendToParse(number, positiveScore);
+				self.sendToParse(number, score);
 				$(".numberSent").html("Submitted! Thank you.")
 				$("#mobileNumber").val("");
 			});			
