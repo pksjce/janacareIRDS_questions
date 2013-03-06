@@ -15,6 +15,7 @@
 			    background-size: cover;
 			    height:100%;
 			    min-width:1000px;
+			    
 			}
 			.fullPage,	.questionPage{
 				width:100%;
@@ -61,27 +62,6 @@
 			}
 			.facebook {
 				background: url('imgc/fb.png') no-repeat;
-			}
-			.header {
-				width:100%;
-				height:46px;
-				top:0;
-				left:0;
-				background-color: black;
-				opacity: 0.3
-			}
-			.absHeader{				
-				top:0;
-				left:0;
-			}
-			.footer {
-				width:100%;
-				height:46px;
-				bottom:0;
-				left:0;
-				background-color: black;
-				opacity: 0.3;
-				position:fixed;				
 			}
 			.fixedBottom{
 				bottom:0;
@@ -135,7 +115,7 @@
 				border-radius: 60px;
 			}		
 			.filler {
-					height: 20px
+				height: 20px
 			}	
 			.score{
 				font:bold 65pt arial;
@@ -157,8 +137,7 @@
 				text-align: left;				
 			}
 			.socialTab{
-				position:absolute;					
-				z-index:5;				
+				position:absolute;								
 				bottom:45;
 				left:0;		
 				width:50px;
@@ -209,7 +188,6 @@
 				left: 0;
 				margin-top: 30px;
 				margin-left:15px;
-				z-index: 10;
 				opacity: 0.99;
 				position: absolute;
 			}
@@ -281,7 +259,7 @@
 				top: 0;
 				right: 0;
 				position: absolute;
-				height:auto;				
+				height:auto;			
 			}
 			.answerBox, .infoBox{				
 				position: relative;
@@ -290,15 +268,13 @@
 				position:absolute;
 				background-color: white;
 				opacity: 0.7;
-				z-index:2;
 				height:100%;
 				width:100%;
 			}
 			.socialOpaque{
 				position:absolute;
 				background-color: white;
-				opacity: 0.7;
-				z-index:2;				
+				opacity: 0.7;			
 				bottom:45;
 				left:0;		
 				width:50px;
@@ -308,7 +284,7 @@
 				position:absolute;
 				background-color: black;
 				opacity:0.7;
-				z-index:10;
+				z-index:1;
 				top:0;
 				left: 0;
 				height:100%;
@@ -318,9 +294,9 @@
 				height:40%;
 				width: 100%;	
 				position:absolute;
-				z-index:100;
 				top:60%;
 				left:0;
+				z-index: 2
 			}
 			.infoGraphText{
 				font:bold arial;
@@ -344,13 +320,11 @@
 			}
 			#container{
 				position:absolute;
-				z-index: 5;
 				width:100%;				
 				overflow:auto;				
 			}
 			#infoContainer{				
 				position:absolute;
-				z-index: 5;
 				width:100%;				
 				overflow:auto;					
 			}
@@ -869,8 +843,8 @@
 			genderType: "b",
 			img: "imgc/deewar.jpg",
 			infoText:{
-				header:"Occupation",
-				body:"Sitting is the smoking of our generation.After 1 hour of sitting, the production of enzymes that burn fat declines by as much as 90%"
+				header:"Sitting is the new smoking",
+				body:"After one hour of sitting, the production of enzymes that burn fat declines by as much as 90%"
 			},
 			count:3
 		},
@@ -893,7 +867,8 @@
 			img: "imgc/005.jpg",
 			infoText:{
 				header:"Family History",
-				body:"36% higher chance when one of the parents has diabetes. 62% higher chance when both parents are diabetic."
+				body:"Family history of Type 2 Diabetes increases your own risk by 50%"
+				//body:"36% higher chance when one of the parents has diabetes. 62% higher chance when both parents are diabetic."
 			},
 			count:5
 		},
@@ -916,7 +891,7 @@
 			img: "imgc/5_was_crop.jpg",
 			infoText:{
 				header:"Waist Size",
-				body:"Abdominal obesity among Indians is a significant risk factor for diabetes."
+				body:"Abdominal obesity among Indians is a significant risk factor for Type 2 Diabetes."
 			},
 			count:6
 		},
@@ -940,7 +915,7 @@
 			img: "imgc/5_was_crop.jpg",
 			infoText:{
 				header:"Waist Size",
-				body:"Abdominal obesity among Indians is a significant risk factor for diabetes."
+				body:"Abdominal obesity among Indians is a significant risk factor for Type 2 Diabetes."
 			},
 			count:6
 		},
@@ -982,8 +957,8 @@
 			genderType: "b",
 			img: "imgc/ddlj.jpg",
 			infoText:{
-				header:"Exercise",
-				body:"150 mins of brisk Physical Activity per week can reduce Type 2 diabetes risk significantly"
+				header:"Physical Activity",
+				body:"150 minutes of brisk physical activity per week can reduce Type 2 Diabetes risk significantly"
 			},
 			count:4
 		}
