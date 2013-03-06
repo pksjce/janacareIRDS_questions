@@ -305,7 +305,7 @@
 			}
 			.infoGraphHeaderText{
 				font:bold 50pt arial;
-				line-height: 20px;
+				line-height: 50px;
 			}
 			.infoGraphBodyText{
 				font:bold 26pt arial;
@@ -504,7 +504,7 @@
 			<div class="backArrow span1 hide">
 				<img src="imgc/arrow_back_on.png" style="float:left">
 			</div>
-			<div class="infoGraphText span8">
+			<div class="infoGraphText span9">
 				<div class="infoGraphHeaderText">
 					<%=fullPageObj.questionObj.infoText.header%>
 				</div>
@@ -512,7 +512,7 @@
 					<%=fullPageObj.questionObj.infoText.body%>
 				</div>
 			</div>
-			<div class="nextArrow span1 offset2">
+			<div class="nextArrow span1 offset1">
 				<img src="imgc/arrow_next_on.png" style="float:right">
 			</div>			
 		</div>
@@ -807,13 +807,13 @@
 			question: "What is your age? (in years)",
 			answerType: "multiSelect",
 			options: [{
-				text:"< 35",
+				text:"less than 35",
 				score:0
 			},{
-				text:"35 - 49",
+				text:"between 35 and 49",
 				score:20
 			},{
-				text:"> 49",
+				text:"greater than 49",
 				score:30
 			}
 			],			
@@ -866,7 +866,7 @@
 			genderType: "b",
 			img: "imgc/005.jpg",
 			infoText:{
-				header:"Family History",
+				header:"The Family Link",
 				body:"Family history of Type 2 Diabetes increases your own risk by 50%"
 				//body:"36% higher chance when one of the parents has diabetes. 62% higher chance when both parents are diabetic."
 			},
@@ -935,7 +935,7 @@
 			genderType:'b',
 			infoText:{
 				header:"Gender",
-				body:"Both Men and Women are equally susceptible to develop Type 2 Diabetes."
+				body:"Both men and women are equally susceptible to develop Type 2 Diabetes."
 			},
 			count:1
 		},
