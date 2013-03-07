@@ -1,3 +1,4 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>	
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">	
@@ -160,7 +161,7 @@
 			}
 			.socialTab{
 				position:absolute;								
-				bottom:45;
+				bottom:45px;
 				left:0;		
 				width:50px;
 				height:130px;		
@@ -344,7 +345,7 @@
   				filter: alpha(opacity=70);
 
 				opacity: 0.7;			
-				bottom:45;
+				bottom:45px;
 				left:0;		
 				width:50px;
 				height:130px;						
@@ -695,7 +696,7 @@
 				Red Alert!
 			</div>
 		
-		<% } else if(score <=50 && score >40){%>
+		<% } else if(score <=60 && score >40){%>
 			<div class="score">
 				<%=score%>
 			</div>					
@@ -1215,6 +1216,7 @@
 			var answerBox = $(".infoOpaque");		
 			var height = $(document).height() - parseInt($(".question").innerHeight());
 			answerBox.height(height + "px");
+			$('.infoContainer').height(height + 'px');
 			userJson = {};
 			userJson["selectedAnswers"] = selectedAnswers;
       		var ParticipantObject = Parse.Object.extend("Participant");
@@ -1272,12 +1274,20 @@
 			this.adjustHeightForIE();
 		},
 		adjustHeightForIE: function(){	
-			var pageHeight = $(document).height() + 'px';
+			var pageHeight = this.getDocHeight()+ 'px';
 			var pageWidth = $(document).width() +'px';
 			$('.backgroundImg').height(pageHeight);
 			$('.backgroundImg').width(pageWidth);
 			$('#habits').height(pageHeight);
 			$('#habits').width(pageWidth);
+		},
+		getDocHeight: function() {
+		    var D = document;
+    		    return Math.max(
+		        Math.max(D.body.scrollHeight, 								D.documentElement.scrollHeight),
+		        Math.max(D.body.offsetHeight, 								D.documentElement.offsetHeight),
+		        Math.max(D.body.clientHeight, 								D.documentElement.clientHeight)
+		    );
 		},
 		changeRoute: function(){
 			var next = flowOfPages.getNext();
@@ -1527,13 +1537,14 @@
 			'questions/:id': 'questions',
 			'facts/:id': 'facts',
 			"score": 'score',
+			'scoredebug':'score',
 			'*whatever':'notFound'
 		}
 	});
 	var app = new ApplicationView();
 	var router = new Router();
 	router.on('route:score', function(){
-		if(app.isValidPageChange()){
+		if(app.isValidPageChange() || Backbone.history.fragment == 'scoredebug'){
 			app.showNextFlowObject(100);
 		} else {
 			router.navigate("#home", {trigger:true});
