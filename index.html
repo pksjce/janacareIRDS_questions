@@ -1219,6 +1219,7 @@
 			$('.infoContainer').height(height + 'px');
 			userJson = {};
 			userJson["selectedAnswers"] = selectedAnswers;
+			userJson["totalScore"] = score;
       		var ParticipantObject = Parse.Object.extend("Participant");
       		var participant = new ParticipantObject();
       		participant.save({user : userJson}, {success:function(object){}});
