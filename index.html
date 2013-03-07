@@ -778,18 +778,16 @@
 				</div>
 				<img src="imgc/food_habits_mobile.png" style="width:50%; height: 40%; max-width: 329px; max-height: 542px; margin-left:25%; min-width:180px; min-height: 300px;">
 				<div class="phBox">
-					<span style="font:12pt arial;text-align:left;width:5%;line-height: 32px; margin-left:10%">
+					<span style="font:12pt arial;text-align:left;width:5%;line-height: 20px; margin-left:10%">
 						Mobile:
 					</span>
 					<span style="margin-left:1%">
-						<input style="height:32px;width:45%;" type="text" id="mobileNumber" >					
+						<input style="height:20px;width:45%;" type="text" id="mobileNumber" >					
 					</span>
 					<input id="submitButton" type="button" value="Submit">					
 				</div>
 				<div class="numberSent">
 				</div>		
-				<div class="filler">
-				</div>
 				<div class="downloadBox">
 					<div class="downloadText">
 						Or download <b>food:habits</b> with</br>
@@ -1195,12 +1193,16 @@
 			Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
 			$("#submitButton").click(function(){
 				var number = parseInt($("#mobileNumber").val());
-				/*var pattern = /^(7|8|9)[\d]{9,9}$/;
+				var pattern = /^(7|8|9)[\d]{9,9}$/;
 				if(!pattern.test(number)){
-					alert("Please enter a valid mobile number");
+					//alert("Please enter a valid mobile number");
+					$('.numberSent').css('color','red');
+					$('.numberSent').html("Please enter a valid mobile number");
+					$("#mobileNumber").val("");
 					return false;
-				}*/
+				}
 				self.sendToParse(number, score);
+				$('.numberSent').css('color','#67BD45');
 				$(".numberSent").html("Submitted! Thank you.")
 				$("#mobileNumber").val("");
 			});			
@@ -1285,9 +1287,9 @@
 		getDocHeight: function() {
 		    var D = document;
     		    return Math.max(
-		        Math.max(D.body.scrollHeight, 								D.documentElement.scrollHeight),
-		        Math.max(D.body.offsetHeight, 								D.documentElement.offsetHeight),
-		        Math.max(D.body.clientHeight, 								D.documentElement.clientHeight)
+		        Math.max(D.body.scrollHeight, D.documentElement.scrollHeight),
+		        Math.max(D.body.offsetHeight, D.documentElement.offsetHeight),
+		        Math.max(D.body.clientHeight, D.documentElement.clientHeight)
 		    );
 		},
 		changeRoute: function(){
