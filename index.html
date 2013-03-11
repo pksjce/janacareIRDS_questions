@@ -8,6 +8,8 @@
 				min-height: 100%;
 				background-color: #B5C59B;
 			}
+			@font-face { font-family: CabinSketch; src: url('cabinSketch/CabinSketch-Regular.ttf'); } 
+			@font-face { font-family: CabinSketch; font-weight: bold; src: url('cabinSketch/CabinSketch-Bold.ttf');}
 			.backgroundImg { 
 			    background: url("") no-repeat center center fixed; 
 			    -webkit-background-size: cover;
@@ -23,7 +25,7 @@
 				height:100%	;
 			}
 			.answer{
-				font: 12pt arial;
+				font: 12pt cabinSketch;
 				line-height: 30px;
 				text-align: center;
 			}
@@ -31,7 +33,7 @@
 				background-color:white;
 				text-align: center;	
 				height: 60px;
-				font: bold 12pt arial;
+				font: bold 12pt cabinSketch;
 				line-height: 60px;			
 			}
 			.answerPage{
@@ -144,6 +146,7 @@
 				font:bold 65pt arial;
 				color:white;
 				text-align: left;
+				display:none;
 			}
 			.whiteline{
 				border: 2px solid white;
@@ -157,7 +160,8 @@
 			.scoreAction{
 				font: bold 18pt arial;
 				color:white;
-				text-align: left;				
+				text-align: left;
+				display:none;				
 			}
 			.socialTab{
 				position:absolute;								
@@ -165,6 +169,13 @@
 				left:0;		
 				width:50px;
 				height:130px;		
+			}
+			.scoreChart{
+				position:fixed;								
+				bottom:45px;
+				left:0;		
+				width:150px;
+				height:230px;
 			}
 			.socialHeader{
 				height:20px;
@@ -234,7 +245,7 @@
 				margin-top:30px;
 			}
 			.navigate {
-				font: bold 80pt arial;
+				font: bold 80pt cabinSketch;
 				color: white;
 				top: 0;
 				left: 0;
@@ -388,7 +399,7 @@
 				text-align: justified;
 			}
 			.infoGraphHeaderText{
-				font:bold 50pt arial;
+				font:bold 50pt cabinSketch;
 				line-height: 50px;
 			}
 			.infoGraphBodyText{
@@ -478,12 +489,49 @@
 				position:fixed;
 				color:black;
 				bottom:20px;
-				right:40%;
+				right:16%;
 				padding:4px;
 				text-align: justify;
 			}
 			.backArrow, .nextArrow{
 				cursor:pointer;
+			}
+			.cabinSketch{
+				font-family: cabinSketch;
+			}
+			.celebrityBox{
+				position:fixed;
+				height:	90%;
+				width:33%; 
+				bottom:0;
+				left:15%;
+			}
+			.celebrityPic{
+				height:750px;
+				width:600px;
+				postion:fixed;
+				top:0;
+				left:5%;
+			}
+			.celebrityScore{
+				position:absolute;
+				font: 46pt cabinSketch;
+				top:345px;
+				left:42%;
+			}
+			.divide{
+				font-family:cabinSketch;
+				border-bottom: 1px dotted;
+				position: absolute;
+				top: 410px;
+				width: 100px;
+				left: 38%;
+			}
+			.celebrityIntro{
+				position:fixed;
+				bottom:0;
+				right:40%;
+				font: 11pt arial;
 			}
 			</style>	
 			<script type="text/javascript">
@@ -520,7 +568,7 @@
 	<div class="homePageEnter">
 		<div class= "headerText">
 				Find out your </br>
-				<span style="font-size:70pt;line-height:50px">sugarscore.</span>
+				<span style="font-size:60pt;line-height:50px" class="cabinSketch">sugarscore.</span>
 		</div>	
 		<div class="filler">
 		</div>
@@ -688,6 +736,7 @@
 			<div class="score">
 				<%=score%>
 			</div>
+			<img class="scoreChart" src="imgc/scores-07.png"/>
 			<div class="scoreAction">
         You are at high risk for diabetes. Get you blood sugar tested immediately!
       </div>					
@@ -700,6 +749,7 @@
 			<div class="score">
 				<%=score%>
 			</div>					
+			<img class="scoreChart" src="imgc/scores-06.png"/>
 			<div class="scoreAction">
 				You are at medium risk for diabetes.
 			</div>				
@@ -712,6 +762,7 @@
 			<div class="score">
 				<%=score%>
 			</div>					
+			<img class="scoreChart" src="imgc/scores-05.png"/>
 			<div class="scoreAction">
         You are at medium risk for diabetes.
       </div>				
@@ -724,6 +775,7 @@
 			<div class="score">
 				<%=score%>
 			</div>					
+			<img class="scoreChart" src="imgc/scores-04.png"/>
 			<div class="scoreAction">
         You are at low risk for diabetes but do exhibit some risk factors.
 			</div>	
@@ -736,6 +788,7 @@
 			<div class="score">
 				<%=score%>
 			</div>					
+			<img class="scoreChart" src="imgc/scores-03.png"/>
 			<div class="scoreAction">
 		    You are at low risk for diabetes.
 			</div>								
@@ -749,7 +802,7 @@
 			<div class="score">
 				<%=score%>
 			</div>				
-						
+			<img class="scoreChart" src="imgc/scores-02.png"/>						
 			<div class="scoreAction">
 				You are at low risk for diabetes.
 			</div>
@@ -764,7 +817,7 @@
 		</div>
 	</div>
 	<div class="helpInfo">
-		<div class="question">
+		<div class="question" style="font-family:arial">
 			7% weight loss reduces diabetes risk by 58%
 		</div>
 		<div class="infoBox">
@@ -801,14 +854,21 @@
 		</div>			
 	</div>		
 
-	<div class="learnMore" style="color:black;position:fixed; bottom:2px; right: 50%;text-decoration:underline;">Disclaimer</div>
+	<div class="learnMore" style="color:black;position:fixed; bottom:2px; right: 20%;text-decoration:underline;">Disclaimer</div>
 	<div class="disclaimer">
 	Sugarscore has been designed to assess the risk of type2 diabetes on the basis of the responses provided by you to the six questions. </br>
 	The results of sugarscore will not take in to account any other associated illness or health condition.</br>The results should not be construed as medical advice or a substitute for medical advice. </br>Please contact your doctor for detailed diagnosis.
 	</div>
-	<div class="socialOpaque">
+	<div class="celebrityBox">
+		<img class="celebrityPic" src="imgc/scoresmohan-12.png">
+		<div class="celebrityScore"><%=score%></div>
+		<div class="divide"></div>
+		<div class="celebrityScore" style="top:420px;left:38%">100</div>
 	</div>
-	<div class="socialTab">
+	<div class="celebrityIntro">Padma Shri Dr. V. Mohan,</br>Diabetologist,</br> Madras Diabetes </br>Research Foundation</div>
+	<div class="socialOpaque hide">
+	</div>
+	<div class="socialTab hide">
 		<div class="socialHeader">
 			Share
 		</div>
@@ -1190,7 +1250,7 @@
 			var self = this;
 			$(".backgroundImg").css("background-image","url('')");	
 			//$(".imgForBc").attr("src", "imgc/final_bg.jpg");
-			Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
+			//Parse.initialize("AnPobp3k9Ct8e1le6fLDVsE8QaiIwGaeJ7KYNf5B", "1QVJqLHgjJH0owbN4qvqytuWor1twdnQaOX6pfP0");
 			$("#submitButton").click(function(){
 				var number = parseInt($("#mobileNumber").val());
 				var pattern = /^(7|8|9)[\d]{9,9}$/;
@@ -1201,7 +1261,7 @@
 					$("#mobileNumber").val("");
 					return false;
 				}
-				self.sendToParse(number, score);
+				//self.sendToParse(number, score);
 				$('.numberSent').css('color','#67BD45');
 				$(".numberSent").html("Submitted! Thank you.")
 				$("#mobileNumber").val("");
@@ -1222,9 +1282,9 @@
 			userJson = {};
 			userJson["selectedAnswers"] = selectedAnswers;
 			userJson["totalScore"] = score;
-      		var ParticipantObject = Parse.Object.extend("Participant");
+      		/*var ParticipantObject = Parse.Object.extend("Participant");
       		var participant = new ParticipantObject();
-      		participant.save({user : userJson}, {success:function(object){}});
+      		participant.save({user : userJson}, {success:function(object){}});*/
 			_gaq.push(['_trackEvent', 'SugarScore', 'Completed', JSON.stringify(userJson)]);
 		},		
 		addHrefLinks: function(score){
@@ -1590,7 +1650,7 @@
 		pushState: false
 	    })
 	}*/
-	var preload = ["imgc/001.jpg", "imgc/002.jpg", "imgc/003.jpg", "imgc/ddlj.jpg", "imgc/005.jpg", "imgc/deewar.jpg", "imgc/5_was_crop.jpg", "imgc/arrow_next_on.png","imgc/final_bg.jpg","imgc/food_habits_mobile.png","imgc/arrow_next_hover.png","imgc/fb.png","imgc/twitter.png"];
+	var preload = ["imgc/001.jpg", "imgc/002.jpg", "imgc/003.jpg", "imgc/ddlj.jpg", "imgc/005.jpg", "imgc/deewar.jpg", "imgc/5_was_crop.jpg", "imgc/arrow_next_on.png","imgc/final_bg.jpg","imgc/food_habits_mobile.png","imgc/arrow_next_hover.png","imgc/fb.png","imgc/twitter.png", "scores-02.png","scores-03.png", "scores-04.png", "scores-05.png", "scores-06.png", "scores-07.png","scores-08.png", "scoresmohan-12.png"];
 	var images = [];
 	for (i = 0; i < preload.length; i++) {
 	    images[i] = new Image();
